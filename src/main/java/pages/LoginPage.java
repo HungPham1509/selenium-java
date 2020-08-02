@@ -21,8 +21,12 @@ public class LoginPage {
         driver.findElement(loginButton).click();
     }
 
+    public void profile(String username) {driver.get("https://www.instagram.com/" + username);}
+
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
+
+
 
 }
