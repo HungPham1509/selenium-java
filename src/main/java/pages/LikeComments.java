@@ -74,7 +74,9 @@ public class LikeComments {
 
     public void closePost() {
         List<WebElement> elements = driver.findElements(svgElement);
-        elements.get(elements.size() - 1).click();
+        if(elements.get(elements.size() - 1).equals("Close")) {
+            elements.get(elements.size() - 1).click();
+        }
     }
 
     public LikeComments(WebDriver driver) {this.driver = driver; this.actions = new Actions(driver);}

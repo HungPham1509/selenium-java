@@ -28,22 +28,28 @@ public class LikeList {
 
     public void getLikeList() {
         List<WebElement> elements = driver.findElements(likeList);
-        if(elements.get(1).equals("Follow")) {
-            elements.get(3).click();
-        }
-        else {
-            elements.get(2).click();
+        if(elements.size() > 1) {
+            if(elements.get(1).equals("Follow")) {
+                elements.get(3).click();
+            }
+            else {
+                elements.get(2).click();
+            }
         }
     }
 
     public void getLiker() {
         List<WebElement> elements = driver.findElements(liker);
-        elements.get(1).click();
+        if(elements.size() > 1) {
+            elements.get(1).click();
+        }
     }
 
     public void closePost() {
         List<WebElement> elements = driver.findElements(svgElement);
-        elements.get(elements.size() - 1).click();
+        if(elements.get(elements.size() - 1).equals("Close")) {
+            elements.get(elements.size() - 1).click();
+        }
     }
 
     public void likePost() {

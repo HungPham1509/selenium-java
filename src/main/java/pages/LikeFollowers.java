@@ -1,13 +1,19 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class LikeFollowers {
     private WebDriver driver;
+
+    private Actions actions;
 
     private By followerList = By.className("-nal3");
 
@@ -19,20 +25,75 @@ public class LikeFollowers {
 
     private By likeButton = By.className("fr66n");
 
+    private By nextArrow = By.className("coreSpriteRightPaginationArrow");
+
     public void getFollowerList() {
         List<WebElement> elements = driver.findElements(followerList);
-        elements.get(1).click();
+        if(elements.get(1).getText().contains("follower")) {
+            try {
+                elements.get(1).click();
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+                this.getFollower();
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void getFollower() {
         List<WebElement> elements = driver.findElements(follower);
-        elements.get(0).click();
+        List<WebElement> elements1 = driver.findElements(followerList);
+        int numberOFFollowers = 0;
+        if(elements1.get(1).getText().contains("follower")) {
+            numberOFFollowers = Integer.parseInt(elements1.get(1).getText().split("\\s")[0]);
+        }
+        if(numberOFFollowers > 0) {
+            if(numberOFFollowers > 12) {
+                try{
+                    int x = numberOFFollowers / 12;
+                    JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+                    for(int i=0; i<x; i++) {
+                        javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", elements.get(elements.size() - 1));
+                        TimeUnit.SECONDS.sleep(1);
+                        elements = driver.findElements(follower);
+                    }
+                }catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                int randomCommentIndex = new Random().nextInt(numberOFFollowers);
+                actions.moveToElement(elements.get(0)).perform();
+                TimeUnit.SECONDS.sleep(1);
+                elements.get(0).click();
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+                this.getPost();
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            this.close();
+        }
     }
 
     public void getPost() {
         List<WebElement> elements = driver.findElements(post);
         if(elements.size() > 0) {
-            elements.get(0).click();
+            try {
+                elements.get(0).click();
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+                for(int i=0; i<3; i++) {
+                    this.likePost();
+                }
+                this.close();
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            driver.navigate().back();
         }
     }
 
@@ -48,15 +109,23 @@ public class LikeFollowers {
             liked = elements.get(9).getAttribute("aria-label");
         }
         if(liked.equals("Like")) {
-            driver.findElement(likeButton).click();
+            try {
+                driver.findElement(likeButton).click();
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            List<WebElement> arrow = driver.findElements(nextArrow);
+            if(arrow.size() > 0) {
+                arrow.get(0).click();
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+            }
+        }catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
-    public void getBack() {
-        driver.navigate().back();
-        driver.navigate().back();
-    }
-
-
-    public LikeFollowers(WebDriver driver) {this.driver = driver;}
+    public LikeFollowers(WebDriver driver) {this.driver = driver; this.actions = new Actions(driver); }
 }

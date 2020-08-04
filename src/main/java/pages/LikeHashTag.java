@@ -29,10 +29,12 @@ public class LikeHashTag {
 
     public void getRecentlyPost() {
         try {
-            actions.moveToElement(driver.findElement(recentlyPosts)).perform();
-            TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
-            List<WebElement> posts = driver.findElements(post);
-            posts.get(9).click();
+            if(driver.findElements(recentlyPosts).size() > 0) {
+                actions.moveToElement(driver.findElement(recentlyPosts)).perform();
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
+                List<WebElement> posts = driver.findElements(post);
+                posts.get(9).click();
+            }
         }
         catch (InterruptedException e) {
             e.printStackTrace();
@@ -54,7 +56,9 @@ public class LikeHashTag {
     }
     public void closePost() {
         List<WebElement> elements = driver.findElements(svgElement);
-        elements.get(elements.size() - 1).click();
+        if(elements.get(elements.size() - 1).equals("Close")) {
+            elements.get(elements.size() - 1).click();
+        }
     }
 
     public LikeHashTag(WebDriver driver) {this.driver = driver; this.actions = new Actions(driver);}
