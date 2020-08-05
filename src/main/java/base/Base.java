@@ -21,8 +21,8 @@ public class Base {
 
     protected LikeHashTag likeHashTag;
 
-    private String username = "hung_pham99"; // kawaken.izakaya
-    private String password = "thtmhfc1509"; //kawaken080808
+    private String username = "kawaken.izakaya"; // kawaken.izakaya
+    private String password = "kawaken080808"; //kawaken080808
     private List<String> taglist = new ArrayList<String>() {{add("chiba"); add("kanagawa");}};
 
     public void setUp() {
@@ -45,28 +45,15 @@ public class Base {
 
             //Like follower
             likeFollowers = new LikeFollowers(driver);
-            likeFollowers.getFollowerList();
-            loginPage.profile(username);
-
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-//            likeFollowers.getFollower();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-//            likeFollowers.getPost();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-//            likeFollowers.likePost();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((2-1)+1))+1);
-//            likeFollowers.close();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-//            likeFollowers.getBack();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-//            likeFollowers.close();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
+            for(int i=0; i<3; i++) {
+                likeFollowers.StartLikeFollowers();
+                loginPage.profile(username);
+            }
 
             //Like users who liked your post
-//            likeList = new LikeList(driver);
-//            likeList.getPost();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
-//            likeList.getLikeList();
+            likeList = new LikeList(driver);
+            likeList.StartLikeBack();
+            likeList.backToProfile();
 //            TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
 //            likeList.getLiker();
 //            TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);

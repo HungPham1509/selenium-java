@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -27,10 +28,13 @@ public class LikeFollowers {
 
     private By nextArrow = By.className("coreSpriteRightPaginationArrow");
 
-    public void getFollowerList() {
+    private List<String> likedFollowerList = new ArrayList<>();
+
+    public void StartLikeFollowers() {
         List<WebElement> elements = driver.findElements(followerList);
         if(elements.get(1).getText().contains("follower")) {
             try {
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                 elements.get(1).click();
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                 this.getFollower();
@@ -62,10 +66,14 @@ public class LikeFollowers {
                 }
             }
             try {
-                int randomCommentIndex = new Random().nextInt(numberOFFollowers);
-                actions.moveToElement(elements.get(0)).perform();
-                TimeUnit.SECONDS.sleep(1);
-                elements.get(0).click();
+                int randomFollowerIndex = new Random().nextInt(numberOFFollowers);
+                while (this.likedFollowerList.contains(elements.get(randomFollowerIndex).getText())) {
+                    randomFollowerIndex = new Random().nextInt(elements.size());
+                }
+                this.likedFollowerList.add(elements.get(randomFollowerIndex).getText());
+                actions.moveToElement(elements.get(randomFollowerIndex)).perform();
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+                elements.get(randomFollowerIndex).click();
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                 this.getPost();
             }catch (InterruptedException e) {
@@ -110,7 +118,7 @@ public class LikeFollowers {
         }
         if(liked.equals("Like")) {
             try {
-                driver.findElement(likeButton).click();
+                //driver.findElement(likeButton).click();
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
             }catch (InterruptedException e) {
                 e.printStackTrace();
