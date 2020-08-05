@@ -44,40 +44,21 @@ public class Base {
             TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
 
             //Like follower
-            likeFollowers = new LikeFollowers(driver);
-            for(int i=0; i<3; i++) {
-                likeFollowers.StartLikeFollowers();
-                loginPage.profile(username);
-            }
-
-            //Like users who liked your post
-            likeList = new LikeList(driver);
-            likeList.StartLikeBack();
-            likeList.backToProfile();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
-//            likeList.getLiker();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
-//            likeList.getPost();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-//            likeList.likePost();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
-//            likeList.closePost();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-//            likeList.getBack();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+//            likeFollowers = new LikeFollowers(driver);
+//            for(int i=0; i<3; i++) {
+//                likeFollowers.StartLikeFollowers();
+//                loginPage.profile(username);
+//            }
+//
+//            //Like users who liked your post
+//            likeList = new LikeList(driver);
+//            likeList.StartLikeBack();
 //            likeList.backToProfile();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
 
             // Like comments
-//            LikeComments likeComments = new LikeComments(driver);
-//            likeComments.getPost();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
-//            likeComments.likeComment();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
-//            likeComments.moreComments();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
-//            likeComments.closePost();
-//            TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+            LikeComments likeComments = new LikeComments(driver);
+            likeComments.StartLikeComments();
+
 
             // like hashtag
 //            LikeHashTag likeHashTag = new LikeHashTag(driver);

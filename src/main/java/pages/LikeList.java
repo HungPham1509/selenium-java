@@ -42,6 +42,9 @@ public class LikeList {
                 e.printStackTrace();
             }
         }
+        else {
+            System.out.println("No post yet");
+        }
     }
 
     public void getLikeList() {
