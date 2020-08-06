@@ -91,23 +91,26 @@ public class LikeFollowers {
             try {
                 elements.get(0).click();
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-                for(int i=0; i<3; i++) {
-                    this.likePost();
-                }
-                this.close();
-                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+                this.likePost();
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
         else {
-            driver.navigate().back();
+            try {
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+                driver.navigate().back();
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void close() {
         List<WebElement> elements = driver.findElements(svgElement);
-        elements.get(elements.size() - 1).click();
+        if(elements.get(elements.size() - 1).getAttribute("aria-label").equals("Close")) {
+            elements.get(elements.size() - 1).click();
+        }
     }
 
     public void likePost() {
@@ -120,18 +123,26 @@ public class LikeFollowers {
             try {
                 //driver.findElement(likeButton).click();
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+                this.close();
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        try {
-            List<WebElement> arrow = driver.findElements(nextArrow);
-            if(arrow.size() > 0) {
-                arrow.get(0).click();
-                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+        else {
+            try {
+                List<WebElement> arrow = driver.findElements(nextArrow);
+                if(arrow.size() > 0) {
+                    arrow.get(0).click();
+                    TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+                    this.likePost();
+                }
+                else {
+                    this.close();
+                }
+            }catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        }catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 

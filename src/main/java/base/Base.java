@@ -44,22 +44,23 @@ public class Base {
             TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
 
             //Like follower
-//            likeFollowers = new LikeFollowers(driver);
-//            for(int i=0; i<3; i++) {
-//                likeFollowers.StartLikeFollowers();
-//                loginPage.profile(username);
-//            }
+            likeFollowers = new LikeFollowers(driver);
+            for(int i=0; i<3; i++) {
+                likeFollowers.StartLikeFollowers();
+                loginPage.profile(username);
+            }
 //
 //            //Like users who liked your post
-//            likeList = new LikeList(driver);
-//            likeList.StartLikeBack();
-//            likeList.backToProfile();
+            likeList = new LikeList(driver);
+            likeList.StartLikeBack();
+            likeList.backToProfile();
 
             // Like comments
             LikeComments likeComments = new LikeComments(driver);
             likeComments.StartLikeComments();
 
 
+            TimeUnit.SECONDS.sleep(6);
             // like hashtag
 //            LikeHashTag likeHashTag = new LikeHashTag(driver);
 //            for(int i=0; i<taglist.size(); i++) {
@@ -89,5 +90,6 @@ public class Base {
     public static void main(String args[]) {
         Base base = new Base();
         base.setUp();
+        base.tearDown();
     }
 }

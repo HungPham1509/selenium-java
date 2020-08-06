@@ -66,7 +66,7 @@ public class LikeComments {
                     actions.moveToElement(likeCommentButtons.get(randomCommentIndex)).perform();
                     TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
                     if (this.likeStatus.get(randomCommentIndex).equals("Like")) {
-                        likeCommentButtons.get(randomCommentIndex).click();
+                        //likeCommentButtons.get(randomCommentIndex).click();
                         TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                     }
                     this.moreComments();

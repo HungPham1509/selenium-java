@@ -115,13 +115,20 @@ public class LikeList {
             }
         }
         else {
-            driver.navigate().back();
+            try {
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+                driver.navigate().back();
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void closePost() {
         List<WebElement> elements = driver.findElements(svgElement);
-        elements.get(elements.size() - 1).click();
+        if(elements.get(elements.size() - 1).getAttribute("aria-label").equals("Close")) {
+            elements.get(elements.size() - 1).click();
+        }
     }
 
     public void likePost() {
