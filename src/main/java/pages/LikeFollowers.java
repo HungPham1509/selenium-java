@@ -1,5 +1,6 @@
 package pages;
 
+import base.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -10,9 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LikeFollowers {
     private WebDriver driver;
+
+    private Logger logger;
 
     private Actions actions;
 
@@ -36,6 +41,7 @@ public class LikeFollowers {
             try {
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                 elements.get(1).click();
+                logger.log(Level.INFO, "Clicked follower list");
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                 this.getFollower();
             }catch (InterruptedException e) {
@@ -61,6 +67,7 @@ public class LikeFollowers {
                         TimeUnit.SECONDS.sleep(1);
                         elements = driver.findElements(follower);
                     }
+                    logger.log(Level.INFO, "Scrolled the follower list to the bottom");
                 }catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -72,8 +79,10 @@ public class LikeFollowers {
                 }
                 this.likedFollowerList.add(elements.get(randomFollowerIndex).getText());
                 actions.moveToElement(elements.get(randomFollowerIndex)).perform();
+                logger.log(Level.INFO, "Moved to picked follower");
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                 elements.get(randomFollowerIndex).click();
+                logger.log(Level.INFO, "Clicked to picked follower");
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                 this.getPost();
             }catch (InterruptedException e) {
@@ -90,6 +99,7 @@ public class LikeFollowers {
         if(elements.size() > 0) {
             try {
                 elements.get(0).click();
+                logger.log(Level.INFO, "Clicked to the latest post of picked follower");
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                 this.likePost();
             }catch (InterruptedException e) {
@@ -99,6 +109,7 @@ public class LikeFollowers {
         else {
             try {
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+                logger.log(Level.INFO, "Returned to follower list");
                 driver.navigate().back();
             }catch (InterruptedException e) {
                 e.printStackTrace();
@@ -109,22 +120,28 @@ public class LikeFollowers {
     public void close() {
         List<WebElement> elements = driver.findElements(svgElement);
         if(elements.get(elements.size() - 1).getAttribute("aria-label").equals("Close")) {
-            elements.get(elements.size() - 1).click();
+            try {
+                elements.get(elements.size() - 1).click();
+                logger.log(Level.INFO, "Closed the post");
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void likePost() {
         List<WebElement> elements = driver.findElements(svgElement);
         String liked = elements.get(8).getAttribute("aria-label");
-        if(elements.get(2).equals("Posts")) {
+        if(elements.get(2).getAttribute("aria-label").equals("Posts")) {
             liked = elements.get(9).getAttribute("aria-label");
         }
         if(liked.equals("Like")) {
             try {
                 //driver.findElement(likeButton).click();
+                logger.log(Level.INFO, "Liked the post");
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                 this.close();
-                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -134,6 +151,7 @@ public class LikeFollowers {
                 List<WebElement> arrow = driver.findElements(nextArrow);
                 if(arrow.size() > 0) {
                     arrow.get(0).click();
+                    logger.log(Level.INFO, "Moved to next post because previous post had been liked");
                     TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                     this.likePost();
                 }
@@ -146,5 +164,5 @@ public class LikeFollowers {
         }
     }
 
-    public LikeFollowers(WebDriver driver) {this.driver = driver; this.actions = new Actions(driver); }
+    public LikeFollowers(WebDriver driver) {this.driver = driver; this.actions = new Actions(driver); this.logger = Logger.getLogger(LikeFollowers.class.getName());}
 }

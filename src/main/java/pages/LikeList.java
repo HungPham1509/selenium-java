@@ -10,9 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LikeList {
     private WebDriver driver;
+
+    private Logger logger;
 
     private Actions actions;
 
@@ -34,16 +38,18 @@ public class LikeList {
             try {
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                 elements.get(0).click();
+                logger.log(Level.INFO, "Clicked to the latest post");
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
                 for(int i=0; i<3; i++) {
                     this.getLikeList();
+                    logger.log(Level.INFO, "Finished like a user");
                 }
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
         else {
-            System.out.println("No post yet");
+            logger.log(Level.WARNING, "Clicked to picked user");
         }
     }
 
@@ -66,6 +72,7 @@ public class LikeList {
 
                 try {
                     elements.get(index).click();
+                    logger.log(Level.INFO, "Clicked to like list of the post");
                     TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                     this.getLiker(numberOFLikes);
                 }catch (InterruptedException e) {
@@ -93,8 +100,10 @@ public class LikeList {
                }
                this.likedBackList.add(elements.get(randomLikerIndex).getText());
                actions.moveToElement(elements.get(randomLikerIndex)).perform();
+               logger.log(Level.INFO, "Moved to picked user");
                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                elements.get(randomLikerIndex).click();
+               logger.log(Level.INFO, "Clicked to picked user");
                TimeUnit.SECONDS.sleep((int)(Math.random()*((5-3)+1))+3);
                this.getPost();
            }catch (InterruptedException e) {
@@ -108,6 +117,7 @@ public class LikeList {
         if(elements.size() > 0) {
             try {
                 elements.get(0).click();
+                logger.log(Level.INFO, "Clicked to latest post of the user");
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
                 this.likePost();
             }catch (InterruptedException e) {
@@ -118,6 +128,8 @@ public class LikeList {
             try {
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                 driver.navigate().back();
+                logger.log(Level.INFO, "Returned to the latest post");
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -127,7 +139,13 @@ public class LikeList {
     public void closePost() {
         List<WebElement> elements = driver.findElements(svgElement);
         if(elements.get(elements.size() - 1).getAttribute("aria-label").equals("Close")) {
-            elements.get(elements.size() - 1).click();
+            try {
+                elements.get(elements.size() - 1).click();
+                logger.log(Level.INFO, "Closed the post");
+                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -140,19 +158,14 @@ public class LikeList {
         if(liked.equals("Like")) {
             try {
                 //driver.findElement(likeButton).click();
+                logger.log(Level.INFO, "Liked the post");
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        try {
-            this.closePost();
-            TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-            this.getBack();
-            TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-        }catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        this.closePost();
+        this.getBack();
     }
 
     public void getBack() {
@@ -160,6 +173,8 @@ public class LikeList {
             driver.navigate().back();
             TimeUnit.SECONDS.sleep(1);
             driver.navigate().back();
+            logger.log(Level.INFO, "Returned to the lastest post");
+            TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
         }catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -167,7 +182,8 @@ public class LikeList {
 
     public void backToProfile() {
         driver.navigate().back();
+        logger.log(Level.INFO, "Returned to profile");
     }
 
-    public LikeList(WebDriver driver) {this.driver = driver; this.actions = new Actions(driver);}
+    public LikeList(WebDriver driver) {this.driver = driver; this.actions = new Actions(driver); this.logger = Logger.getLogger(LikeList.class.getName());}
 }
