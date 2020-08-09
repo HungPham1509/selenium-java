@@ -72,7 +72,7 @@ public class LikeComments {
                     logger.log(Level.INFO, "Moved to picked comment");
                     TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
                     if (this.likeStatus.get(randomCommentIndex).equals("Like")) {
-                        //likeCommentButtons.get(randomCommentIndex).click();
+                        likeCommentButtons.get(randomCommentIndex).click();
                         logger.log(Level.INFO, "Liked picked comment");
                         TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                     }

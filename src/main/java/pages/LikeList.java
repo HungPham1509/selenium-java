@@ -157,7 +157,7 @@ public class LikeList {
         }
         if(liked.equals("Like")) {
             try {
-                //driver.findElement(likeButton).click();
+                driver.findElement(likeButton).click();
                 logger.log(Level.INFO, "Liked the post");
                 TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
             }catch (InterruptedException e) {
