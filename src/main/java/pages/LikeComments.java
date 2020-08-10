@@ -55,7 +55,7 @@ public class LikeComments {
         List<WebElement> elements = driver.findElements(svgElement);
         List<WebElement> likeCommentButtons = driver.findElements(likeCommentButton);
         // check whether instagram account has igtv or not
-        if(elements.get(2).equals("Posts")) {
+        if(elements.get(2).getAttribute("aria-label").equals("Posts")) {
             this.index = 15;
         }
         if(likeCommentButtons.size() > 0) {
@@ -72,7 +72,7 @@ public class LikeComments {
                     logger.log(Level.INFO, "Moved to picked comment");
                     TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
                     if (this.likeStatus.get(randomCommentIndex).equals("Like")) {
-                        likeCommentButtons.get(randomCommentIndex).click();
+                        //likeCommentButtons.get(randomCommentIndex).click();
                         logger.log(Level.INFO, "Liked picked comment");
                         TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
                     }

@@ -5,16 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Base {
     private WebDriver driver;
-
-    private Logger logger;
 
     protected LoginPage loginPage;
 
@@ -28,48 +24,29 @@ public class Base {
 
     protected Auxiliary auxiliary;
 
-    private String username = "pham_hung99"; // kawaken.izakaya
-    private String password = "thtmhfc1509"; //kawaken080808
-    private List<String> taglist = new ArrayList<String>() {{add("chiba"); add("kanagawa");}};
+    //private List<String> taglist = new ArrayList<String>() {{add("chiba"); add("kanagawa");}};
 
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
         auxiliary = new Auxiliary();
-        logger = Logger.getLogger(Base.class.getName());
 
         try {
             // Login
-            driver.get("https://www.instagram.com/accounts/login/?source=auth_switcher");
-            logger.log(Level.INFO, "Accessed Instagram log in page");
-            TimeUnit.SECONDS.sleep(1);
             loginPage = new LoginPage(driver);
-            loginPage.setUsernameField(username);
-            logger.log(Level.INFO, "Filled in username input");
-            TimeUnit.SECONDS.sleep(1);
-            loginPage.setPasswordField(password);
-            logger.log(Level.INFO, "Filled in password input");
-            TimeUnit.SECONDS.sleep(1);
-            loginPage.clickLoginButton();
-            logger.log(Level.INFO, "Clicked log in button");
-            TimeUnit.SECONDS.sleep(auxiliary.delayBetween(4, 8));
-            loginPage.profile(username);
-            logger.log(Level.INFO, "Accessed profile");
-            TimeUnit.SECONDS.sleep(auxiliary.delayBetween(2, 4));
+            loginPage.startLogIn();
 
             //Like follower
 //            likeFollowers = new LikeFollowers(driver);
 //            for(int i=0; i<3; i++) {
 //                likeFollowers.StartLikeFollowers();
-//                loginPage.profile(username);
-//                logger.log(Level.INFO, "Returned to profile");
+//                loginPage.profile("pham_hung99");
 //            }
-//            logger.log(Level.INFO, "Finished like followers function");
 //
 //            //Like users who liked your post
-//            likeList = new LikeList(driver);
-//            likeList.StartLikeBack();
-//            likeList.backToProfile();
+            likeList = new LikeList(driver);
+            likeList.StartLikeBack();
+            likeList.backToProfile();
 //
 //            logger.log(Level.INFO, "Finished like back users function");
 
@@ -97,17 +74,16 @@ public class Base {
 //                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
 //            }
         }
-        catch (InterruptedException e) {
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void tearDown() {
         driver.quit();
-        logger.log(Level.INFO, "Closed the browser");
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Base base = new Base();
         base.setUp();
         //base.tearDown();
