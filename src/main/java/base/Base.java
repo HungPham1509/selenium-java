@@ -44,15 +44,15 @@ public class Base {
 //            }
 //
 //            //Like users who liked your post
-            likeList = new LikeList(driver);
-            likeList.StartLikeBack();
+//            likeList = new LikeList(driver);
+//            likeList.StartLikeBack();
             //likeList.backToProfile();
 //
 //            logger.log(Level.INFO, "Finished like back users function");
 
             // Like comments
-//            LikeComments likeComments = new LikeComments(driver);
-//            likeComments.StartLikeComments();
+            likeComments = new LikeComments(driver);
+            likeComments.StartLikeComments();
 //            logger.log(Level.INFO, "Finished like comments function");
 //
 //            TimeUnit.SECONDS.sleep(6);

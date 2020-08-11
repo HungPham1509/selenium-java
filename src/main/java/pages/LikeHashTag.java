@@ -1,10 +1,14 @@
 package pages;
 
+import auxiliary.Auxiliary;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -12,6 +16,12 @@ public class LikeHashTag {
     private WebDriver driver;
 
     private Actions actions;
+
+    private FileWriter fileWriter;
+
+    private BufferedWriter bufferedWriter;
+
+    protected Auxiliary auxiliary = new Auxiliary();
 
     private By post = By.className("_9AhH0");
 
@@ -21,10 +31,25 @@ public class LikeHashTag {
 
     private By recentlyPosts = By.className("yQ0j1");
 
+    private By searchInput = By.className("XTCLo");
+
     private By nextArrow = By.className("coreSpriteRightPaginationArrow");
 
     public void findHashTag(String tag) {
-        driver.get("https://www.instagram.com/explore/tags/" + tag);
+        List<WebElement> elements = driver.findElements(searchInput);
+        System.out.println(elements.size());
+//        try {
+//            fileWriter = new FileWriter("resources/history.txt", true);
+//            bufferedWriter = new BufferedWriter(fileWriter);
+//            driver.get("https://www.instagram.com/explore/tags/" + tag);
+//            bufferedWriter.write("Moved to target hashtag " + tag);
+//            bufferedWriter.newLine();
+//            bufferedWriter.close();
+//            TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
+//        }
+//        catch (InterruptedException | IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void getRecentlyPost() {

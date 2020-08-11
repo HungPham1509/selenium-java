@@ -1,24 +1,27 @@
 package pages;
 
+import auxiliary.Auxiliary;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class LikeComments {
     private WebDriver driver;
 
-    private Logger logger;
+    private FileWriter fileWriter;
 
-    private Actions actions;
+    private BufferedWriter bufferedWriter;
+
+    protected Auxiliary auxiliary = new Auxiliary();
 
     private By post = By.className("_9AhH0");
 
@@ -36,54 +39,61 @@ public class LikeComments {
         List<WebElement> elements = driver.findElements(post);
         if(elements.size() > 0) {
             try {
-                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+                fileWriter = new FileWriter("resources/history.txt", true);
+                bufferedWriter = new BufferedWriter(fileWriter);
                 elements.get(0).click();
-                logger.log(Level.INFO, "Clicked to the latest post");
-                TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
+                bufferedWriter.write("Clicked to the latest post");
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+                Thread.sleep(auxiliary.delayBetween(2500, 3500));
                 this.likeComment();
-                this.closePost();
-            }catch (InterruptedException e) {
+            }catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
-        }
-        else {
-            logger.log(Level.WARNING, "No post yet");
         }
     }
 
     public void likeComment() {
         List<WebElement> elements = driver.findElements(svgElement);
         List<WebElement> likeCommentButtons = driver.findElements(likeCommentButton);
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
         // check whether instagram account has igtv or not
         if(elements.get(2).getAttribute("aria-label").equals("Posts")) {
             this.index = 15;
         }
         if(likeCommentButtons.size() > 0) {
-            for(int j=0; j<3; j++) {
-                for (int i = this.index; i < elements.size(); i++) {
-                    if (elements.get(i).getAttribute("aria-label").equals("Like") || elements.get(i).getAttribute("aria-label").equals("Unlike")) {
-                        this.likeStatus.add(elements.get(i).getAttribute("aria-label"));
-                    }
+            for(int i=0; i<5; i++) {
+                this.moreComments();
+            }
+            elements = driver.findElements(svgElement);
+            likeCommentButtons = driver.findElements(likeCommentButton);
+            for (int i = this.index; i < elements.size(); i++) {
+                if (elements.get(i).getAttribute("aria-label").equals("Like") || elements.get(i).getAttribute("aria-label").equals("Unlike")) {
+                    this.likeStatus.add(elements.get(i).getAttribute("aria-label"));
                 }
-                this.index = elements.size();
+            }
+
+            for(int j=0; j<3; j++) {
                 try {
+                    fileWriter = new FileWriter("resources/history.txt", true);
+                    bufferedWriter = new BufferedWriter(fileWriter);
                     int randomCommentIndex = new Random().nextInt(likeCommentButtons.size());
-                    actions.moveToElement(likeCommentButtons.get(randomCommentIndex)).perform();
-                    logger.log(Level.INFO, "Moved to picked comment");
-                    TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
+                    javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", likeCommentButtons.get(randomCommentIndex));
+                    bufferedWriter.write("Moved to picked comment");
+                    bufferedWriter.newLine();
+                    TimeUnit.SECONDS.sleep(auxiliary.delayBetween(2, 4));
                     if (this.likeStatus.get(randomCommentIndex).equals("Like")) {
-                        //likeCommentButtons.get(randomCommentIndex).click();
-                        logger.log(Level.INFO, "Liked picked comment");
-                        TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
+                        likeCommentButtons.get(randomCommentIndex).click();
+                        bufferedWriter.write("Liked picked comment");
+                        bufferedWriter.newLine();
+                        bufferedWriter.close();
+                        Thread.sleep(auxiliary.delayBetween(3000, 5000));
                     }
-                    this.moreComments();
-                    likeCommentButtons = driver.findElements(likeCommentButton);
-                    elements = driver.findElements(svgElement);
-                    logger.log(Level.INFO, "Finished like a comment");
-                }catch (InterruptedException e) {
+                }catch (InterruptedException | IOException e) {
                     e.printStackTrace();
                 }
             }
+            this.closePost();
         }
         else {
             this.closePost();
@@ -91,32 +101,42 @@ public class LikeComments {
     }
 
     public void moreComments() {
-        Boolean button = driver.findElements(moreCommentsButton).size() > 0;
+        boolean button = driver.findElements(moreCommentsButton).size() > 0;
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
         if(button) {
             try {
-                actions.moveToElement(driver.findElements(moreCommentsButton).get(0)).perform();
-                logger.log(Level.INFO, "Moved to more comments button");
-                TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
+                fileWriter = new FileWriter("resources/history.txt", true);
+                bufferedWriter = new BufferedWriter(fileWriter);
+                javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", driver.findElements(moreCommentsButton).get(0));
+                Thread.sleep(auxiliary.delayBetween(2500, 3500));
                 driver.findElements(moreCommentsButton).get(0).click();
-                logger.log(Level.INFO, "Clicked to more comments");
-                TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
+                bufferedWriter.write("Clicked to more comments");
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+                Thread.sleep(auxiliary.delayBetween(3000, 4000));
             }
-            catch (InterruptedException e) {
+            catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
-        }
-        else {
-            logger.log(Level.INFO, "No more comments");
         }
     }
 
     public void closePost() {
         List<WebElement> elements = driver.findElements(svgElement);
         if(elements.get(elements.size() - 1).getAttribute("aria-label").equals("Close")) {
-            elements.get(elements.size() - 1).click();
-            logger.log(Level.INFO, "Closed the post");
+            try {
+                fileWriter = new FileWriter("resources/history.txt", true);
+                bufferedWriter = new BufferedWriter(fileWriter);
+                elements.get(elements.size() - 1).click();
+                bufferedWriter.write("Closed the post");
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+                TimeUnit.SECONDS.sleep(auxiliary.delayBetween(2, 4));
+            }catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public LikeComments(WebDriver driver) {this.driver = driver; this.actions = new Actions(driver); this.logger = Logger.getLogger(LikeComments.class.getName());}
+    public LikeComments(WebDriver driver) {this.driver = driver;}
 }

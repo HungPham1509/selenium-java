@@ -114,7 +114,7 @@ public class LoginPage {
         this.setUsernameField(this.username);
         this.setPasswordField(this.password);
         this.clickLoginButton();
-        this.profile(this.username);
+        this.profile("romelulukaku");
     }
 
     public LoginPage(WebDriver driver) throws IOException {
