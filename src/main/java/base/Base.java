@@ -46,7 +46,7 @@ public class Base {
 //            //Like users who liked your post
             likeList = new LikeList(driver);
             likeList.StartLikeBack();
-            likeList.backToProfile();
+            //likeList.backToProfile();
 //
 //            logger.log(Level.INFO, "Finished like back users function");
 

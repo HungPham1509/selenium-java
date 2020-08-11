@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -14,15 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class LikeList {
     private WebDriver driver;
-
-    private Logger logger;
-
-    private Actions actions;
 
     private FileWriter fileWriter;
 
@@ -40,9 +33,13 @@ public class LikeList {
 
     private By liker = By.className("MBL3Z");
 
+    private By nextArrow = By.className("coreSpriteRightPaginationArrow");
+
     private List<String> likedBackList = new ArrayList<>();
 
-    private List<String> likers = new ArrayList<>();
+    private List<String> allLikers = new ArrayList<>();
+
+    private int numberOfClikingNextTimes = 0;
 
     public void StartLikeBack() {
         List<WebElement> elements = driver.findElements(post);
@@ -65,11 +62,9 @@ public class LikeList {
     }
 
     public void getLikeList() {
+        this.numberOfClikingNextTimes = 0;
         List<WebElement> elements = driver.findElements(likeList);
         if(elements.size() > 0) {
-            for (WebElement element : elements) {
-                System.out.println(element.getText());
-            }
             int index = 2;
             if(elements.get(2).getText().equals("")) {
                 index = 3;
@@ -87,18 +82,19 @@ public class LikeList {
                 else {
                     numberOFLikes = Integer.parseInt(elements.get(index).getText().split("\\s")[0]);
                 }
-
-                try {
-                    fileWriter = new FileWriter("resources/history.txt", true);
-                    bufferedWriter = new BufferedWriter(fileWriter);
-                    elements.get(index).click();
-                    bufferedWriter.write("Clicked to like list of the post");
-                    bufferedWriter.newLine();
-                    bufferedWriter.close();
-                    Thread.sleep(auxiliary.delayBetween(2000, 4000));
-                    this.getLiker(numberOFLikes);
-                }catch (InterruptedException | IOException e) {
-                    e.printStackTrace();
+                if(this.likedBackList.size() < numberOFLikes) {
+                    try {
+                        fileWriter = new FileWriter("resources/history.txt", true);
+                        bufferedWriter = new BufferedWriter(fileWriter);
+                        elements.get(index).click();
+                        bufferedWriter.write("Clicked to like list of the post");
+                        bufferedWriter.newLine();
+                        bufferedWriter.close();
+                        Thread.sleep(auxiliary.delayBetween(2000, 4000));
+                        this.getLiker(numberOFLikes);
+                    }catch (InterruptedException | IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -106,23 +102,24 @@ public class LikeList {
 
     public void getLiker(int numberOfLikes) {
         List<WebElement> elements = driver.findElements(liker);
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        List<String> likersInOneScroll = new ArrayList<>();
         if(elements.size() > 0) {
             for (WebElement element : elements) {
-                if (!this.likers.contains(element.getText())) {
-                    this.likers.add(element.getText());
+                if (!this.allLikers.contains(element.getText())) {
+                    this.allLikers.add(element.getText());
                 }
             }
             if(numberOfLikes > 11) {
                 try {
                     int x = numberOfLikes / 11 + 2;
-                    JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
                     for (int i = 0; i < x; i++) {
                         javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", elements.get(elements.size() - 1));
                         Thread.sleep(auxiliary.delayBetween(800, 1500));
                         elements = driver.findElements(liker);
                         for (WebElement element : elements) {
-                            if (!this.likers.contains(element.getText())) {
-                                this.likers.add(element.getText());
+                            if (!this.allLikers.contains(element.getText())) {
+                                this.allLikers.add(element.getText());
                             }
                         }
                     }
@@ -133,17 +130,39 @@ public class LikeList {
             try {
                 fileWriter = new FileWriter("resources/history.txt", true);
                 bufferedWriter = new BufferedWriter(fileWriter);
-                int randomLikerIndex = new Random().nextInt(this.likers.size());
-                while (this.likedBackList.contains(elements.get(randomLikerIndex).getText())) {
-                    randomLikerIndex = new Random().nextInt(this.likers.size());
-                    if(this.likedBackList.size() == numberOfLikes) {
-                        break;
+                int randomLikerIndex = new Random().nextInt(this.allLikers.size());
+                while (this.likedBackList.contains(this.allLikers.get(randomLikerIndex))) {
+                    randomLikerIndex = new Random().nextInt(this.allLikers.size());
+                }
+
+                this.likedBackList.add(this.allLikers.get(randomLikerIndex));
+
+                for(WebElement element: elements) {
+                    if(!likersInOneScroll.contains(element.getText())) {
+                        likersInOneScroll.add(element.getText());
                     }
                 }
-                this.likedBackList.add(elements.get(randomLikerIndex).getText());
-                TimeUnit.SECONDS.sleep(auxiliary.delayBetween(2, 4));
-                driver.get("https://www.instagram.com/" + this.likers.get(randomLikerIndex));
-                bufferedWriter.write("Moved to " + this.likers.get(randomLikerIndex) + "'s profile");
+                while (!likersInOneScroll.contains(this.allLikers.get(randomLikerIndex))) {
+                    javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", elements.get(0));
+                    Thread.sleep(auxiliary.delayBetween(800, 1500));
+                    elements = driver.findElements(liker);
+                    for(WebElement element: elements) {
+                        if(!likersInOneScroll.contains(element.getText())) {
+                            likersInOneScroll.add(element.getText());
+                        }
+                    }
+                }
+                WebElement pickedOne = elements.get(0);
+                for(WebElement element: elements) {
+                    if(element.getText().equals(this.allLikers.get(randomLikerIndex))) {
+                        pickedOne = element;
+                    }
+                }
+                System.out.println(pickedOne.getText());
+                System.out.println(this.allLikers.get(randomLikerIndex));
+                Thread.sleep(auxiliary.delayBetween(2000, 3000));
+                pickedOne.click();
+                bufferedWriter.write("Moved to " + this.allLikers.get(randomLikerIndex) + "'s profile");
                 bufferedWriter.newLine();
                 bufferedWriter.close();
                 TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
@@ -212,32 +231,54 @@ public class LikeList {
             try {
                 fileWriter = new FileWriter("resources/history.txt", true);
                 bufferedWriter = new BufferedWriter(fileWriter);
-                //driver.findElement(likeButton).click();
+                driver.findElement(likeButton).click();
                 bufferedWriter.write("Liked the post");
                 bufferedWriter.newLine();
                 bufferedWriter.close();
                 TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
+                this.closePost();
+                this.getBack();
             }catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
         }
         else {
             try {
-                TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
-            }catch (InterruptedException e) {
+                fileWriter = new FileWriter("resources/history.txt", true);
+                bufferedWriter = new BufferedWriter(fileWriter);
+                List<WebElement> arrow = driver.findElements(nextArrow);
+                if(arrow.size() > 0) {
+                    arrow.get(0).click();
+                    this.numberOfClikingNextTimes += 1;
+                    bufferedWriter.write("Moved to next post because previous post had been liked");
+                    bufferedWriter.newLine();
+                    bufferedWriter.close();
+                    Thread.sleep(auxiliary.delayBetween(3000, 4000));
+                    this.likePost();
+                }
+                else {
+                    Thread.sleep(auxiliary.delayBetween(3000, 4000));
+                    this.closePost();
+                    this.getBack();
+                }
+            }catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
         }
-        this.closePost();
-        this.getBack();
     }
 
     public void getBack() {
         try {
+            if(this.numberOfClikingNextTimes > 0) {
+                for(int i=0; i<this.numberOfClikingNextTimes; i++) {
+                    driver.navigate().back();
+                    Thread.sleep(auxiliary.delayBetween(2000, 3000));
+                }
+            }
             fileWriter = new FileWriter("resources/history.txt", true);
             bufferedWriter = new BufferedWriter(fileWriter);
             driver.navigate().back();
-            TimeUnit.SECONDS.sleep(1);
+            Thread.sleep(auxiliary.delayBetween(2000, 3000));
             driver.navigate().back();
             bufferedWriter.write("Returned to the lastest post");
             bufferedWriter.newLine();
@@ -263,5 +304,5 @@ public class LikeList {
 
     }
 
-    public LikeList(WebDriver driver) {this.driver = driver; this.actions = new Actions(driver); this.logger = Logger.getLogger(LikeList.class.getName());}
+    public LikeList(WebDriver driver) {this.driver = driver;}
 }
