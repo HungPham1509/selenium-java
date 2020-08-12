@@ -24,10 +24,12 @@ public class Base {
 
     protected Auxiliary auxiliary;
 
-    private List<String> taglist = new ArrayList<String>() {{add("#chiba"); add("#kanagawa");}};
+    //private List<String> taglist = new ArrayList<String>() {{add("#chiba"); add("#kanagawa");}};
 
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
+        System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.SimpleLog");
+        System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http", "warn");
         driver = new ChromeDriver();
         auxiliary = new Auxiliary();
 
@@ -58,9 +60,8 @@ public class Base {
 //            TimeUnit.SECONDS.sleep(6);
 
             // like hashtag
-            likeHashTag = new LikeHashTag(driver);
-            for(int i=0; i<taglist.size(); i++)
-            likeHashTag.findHashTag(taglist.get(i), "Recent");
+//            likeHashTag = new LikeHashTag(driver);
+//            for (String s : taglist) likeHashTag.findHashTag(s, "Recent");
         }
         catch (IOException e) {
             e.printStackTrace();

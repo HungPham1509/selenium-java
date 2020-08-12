@@ -1,6 +1,8 @@
 package pages;
 
 import auxiliary.Auxiliary;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -16,6 +18,7 @@ public class LoginPage {
     protected Auxiliary auxiliary = new Auxiliary();
     private FileWriter fileWriter;
     private BufferedWriter bufferedWriter;
+    private Logger logger = Logger.getLogger(LoginPage.class);
     private By usernameField = By.name("username");
     private By passwordField = By.name("password");
     private By loginButton = By.className("L3NKy");
@@ -30,7 +33,8 @@ public class LoginPage {
             bufferedWriter.write(String.valueOf(date));
             bufferedWriter.newLine();
             driver.get("https://www.instagram.com/accounts/login/?source=auth_switcher");
-            bufferedWriter.write("Accessed Instagram log in page");
+            logger.info("Accessed Instagram login page");
+            bufferedWriter.write("Accessed Instagram login page");
             bufferedWriter.newLine();
             bufferedWriter.close();
             TimeUnit.SECONDS.sleep(1);
@@ -50,6 +54,7 @@ public class LoginPage {
                 driver.findElement(usernameField).sendKeys(s);
                 Thread.sleep(delayTime);
             }
+            logger.info("Filled in username input");
             bufferedWriter.write("Filled in username input");
             bufferedWriter.newLine();
             bufferedWriter.close();
@@ -70,6 +75,7 @@ public class LoginPage {
                 driver.findElement(passwordField).sendKeys(s);
                 Thread.sleep(delayTime);
             }
+            logger.info("Filled in password input");
             bufferedWriter.write("Filled in password input");
             bufferedWriter.newLine();
             bufferedWriter.close();
@@ -84,7 +90,8 @@ public class LoginPage {
             fileWriter = new FileWriter("resources/history.txt", true);
             bufferedWriter = new BufferedWriter(fileWriter);
             driver.findElement(loginButton).click();
-            bufferedWriter.write("Clicked log in button");
+            logger.info("Clicked login button");
+            bufferedWriter.write("Clicked login button");
             bufferedWriter.newLine();
             bufferedWriter.close();
             int delayTime = auxiliary.delayBetween(5, 8);
@@ -99,6 +106,7 @@ public class LoginPage {
             fileWriter = new FileWriter("resources/history.txt", true);
             bufferedWriter = new BufferedWriter(fileWriter);
             driver.get("https://www.instagram.com/" + username);
+            logger.info("Accessed profile");
             bufferedWriter.write("Accessed profile");
             bufferedWriter.newLine();
             bufferedWriter.close();
@@ -110,11 +118,12 @@ public class LoginPage {
     }
 
     public void startLogIn() {
+        logger.info("Start like follower function with: [shop]");
         this.accessInstagram();
         this.setUsernameField(this.username);
         this.setPasswordField(this.password);
-        this.clickLoginButton();
-        this.profile(this.username);
+//        this.clickLoginButton();
+//        this.profile(this.username);
     }
 
     public LoginPage(WebDriver driver) throws IOException {
