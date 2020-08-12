@@ -93,11 +93,8 @@ public class LikeComments {
                     e.printStackTrace();
                 }
             }
-            this.closePost();
         }
-        else {
-            this.closePost();
-        }
+        this.closePost();
     }
 
     public void moreComments() {

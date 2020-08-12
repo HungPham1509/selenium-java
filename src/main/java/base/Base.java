@@ -24,7 +24,7 @@ public class Base {
 
     protected Auxiliary auxiliary;
 
-    //private List<String> taglist = new ArrayList<String>() {{add("chiba"); add("kanagawa");}};
+    private List<String> taglist = new ArrayList<String>() {{add("#chiba"); add("#kanagawa");}};
 
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
@@ -51,28 +51,16 @@ public class Base {
 //            logger.log(Level.INFO, "Finished like back users function");
 
             // Like comments
-            likeComments = new LikeComments(driver);
-            likeComments.StartLikeComments();
+//            likeComments = new LikeComments(driver);
+//            likeComments.StartLikeComments();
 //            logger.log(Level.INFO, "Finished like comments function");
 //
 //            TimeUnit.SECONDS.sleep(6);
 
             // like hashtag
-//            LikeHashTag likeHashTag = new LikeHashTag(driver);
-//            for(int i=0; i<taglist.size(); i++) {
-//                likeHashTag.findHashTag(taglist.get(i));
-//                TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
-//                likeHashTag.getRecentlyPost();
-//                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-//                likeHashTag.likePost();
-//                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-//                likeHashTag.nextPost();
-//                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-//                likeHashTag.likePost();
-//                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-//                likeHashTag.closePost();
-//                TimeUnit.SECONDS.sleep((int)(Math.random()*((4-2)+1))+2);
-//            }
+            likeHashTag = new LikeHashTag(driver);
+            for(int i=0; i<taglist.size(); i++)
+            likeHashTag.findHashTag(taglist.get(i), "Recent");
         }
         catch (IOException e) {
             e.printStackTrace();

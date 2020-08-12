@@ -2,9 +2,9 @@ package pages;
 
 import auxiliary.Auxiliary;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -14,8 +14,6 @@ import java.util.concurrent.TimeUnit;
 
 public class LikeHashTag {
     private WebDriver driver;
-
-    private Actions actions;
 
     private FileWriter fileWriter;
 
@@ -33,58 +31,122 @@ public class LikeHashTag {
 
     private By searchInput = By.className("XTCLo");
 
+    private By searchResult = By.className("yCE8d");
+
+    private By searhName = By.className("Ap253");
+
     private By nextArrow = By.className("coreSpriteRightPaginationArrow");
 
-    public void findHashTag(String tag) {
-        List<WebElement> elements = driver.findElements(searchInput);
-        System.out.println(elements.size());
-//        try {
-//            fileWriter = new FileWriter("resources/history.txt", true);
-//            bufferedWriter = new BufferedWriter(fileWriter);
-//            driver.get("https://www.instagram.com/explore/tags/" + tag);
-//            bufferedWriter.write("Moved to target hashtag " + tag);
-//            bufferedWriter.newLine();
-//            bufferedWriter.close();
-//            TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
-//        }
-//        catch (InterruptedException | IOException e) {
-//            e.printStackTrace();
-//        }
-    }
+    private int numberOfLikes = 0;
 
-    public void getRecentlyPost() {
+    public void findHashTag(String tag, String postType) {
+        WebElement search = driver.findElement(searchInput);
         try {
-            if(driver.findElements(recentlyPosts).size() > 0) {
-                actions.moveToElement(driver.findElement(recentlyPosts)).perform();
-                TimeUnit.SECONDS.sleep((int)(Math.random()*((3-2)+1))+2);
-                List<WebElement> posts = driver.findElements(post);
-                posts.get(9).click();
+            for (int i=0; i<tag.length(); i++) {
+                char c = tag.charAt(i);
+                String s = String.valueOf(c);
+                int delayTime = auxiliary.delayBetween(300, 500);
+                search.sendKeys(s);
+                Thread.sleep(delayTime);
+            }
+            Thread.sleep(auxiliary.delayBetween(2000, 3000));
+            List<WebElement> results = driver.findElements(searchResult);
+            List<WebElement> names = driver.findElements(searhName);
+            if(results.size() > 0) {
+                fileWriter = new FileWriter("resources/history.txt", true);
+                bufferedWriter = new BufferedWriter(fileWriter);
+                for(int i=0; i<results.size(); i++) {
+                    if(names.get(i).getText().equals(tag)) {
+                        results.get(i).click();
+                    }
+                }
+                bufferedWriter.write("Moved to target hashtag " + tag);
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+                TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
+                this.getPost(postType);
+                this.closePost();
             }
         }
-        catch (InterruptedException e) {
+        catch (InterruptedException | IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void getPost(String postType) {
+        List<WebElement> elements = driver.findElements(post);
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        this.numberOfLikes = 0;
+        if(elements.size() > 0) {
+            try {
+                fileWriter = new FileWriter("resources/history.txt", true);
+                bufferedWriter = new BufferedWriter(fileWriter);
+                if (postType.equals("Top")) {
+                    elements.get(0).click();
+                    bufferedWriter.write("Clicked to the first top post");
+                }
+                if (postType.equals("Recent")) {
+                    javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(recentlyPosts));
+                    Thread.sleep(auxiliary.delayBetween(2000, 3000));
+                    elements.get(9).click();
+                    bufferedWriter.write("Clicked to the first recently post");
+                }
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+                Thread.sleep(auxiliary.delayBetween(2500, 3500));
+                this.likePost();
+            } catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void likePost() {
         List<WebElement> elements = driver.findElements(svgElement);
         String liked = elements.get(5).getAttribute("aria-label");
-        if(liked.equals("Like")) {
-            driver.findElement(likeButton).click();
+        try {
+            fileWriter = new FileWriter("resources/history.txt", true);
+            bufferedWriter = new BufferedWriter(fileWriter);
+            if(liked.equals("Like")) {
+                    //driver.findElement(likeButton).click();
+                    numberOfLikes +=1;
+                    bufferedWriter.write("Liked the post");
+                    bufferedWriter.newLine();
+                    TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
+            }
+            List<WebElement> arrow = driver.findElements(nextArrow);
+            if(arrow.size() > 0 && this.numberOfLikes < 2) {
+                arrow.get(0).click();
+                bufferedWriter.write("Moved to next post because previous post had been liked");
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+                Thread.sleep(auxiliary.delayBetween(3000, 4000));
+                this.likePost();
+            }
+            else {
+                this.closePost();
+            }
+        }catch (InterruptedException | IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public void nextPost() {
-        if(driver.findElement(nextArrow) != null) {
-            driver.findElement(nextArrow).click();
-        }
-    }
     public void closePost() {
         List<WebElement> elements = driver.findElements(svgElement);
-        if(elements.get(elements.size() - 1).equals("Close")) {
-            elements.get(elements.size() - 1).click();
+        if(elements.get(elements.size() - 1).getAttribute("aria-label").equals("Close")) {
+            try {
+                fileWriter = new FileWriter("resources/history.txt", true);
+                bufferedWriter = new BufferedWriter(fileWriter);
+                elements.get(elements.size() - 1).click();
+                bufferedWriter.write("Closed the post");
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+                TimeUnit.SECONDS.sleep(auxiliary.delayBetween(2, 4));
+            }catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public LikeHashTag(WebDriver driver) {this.driver = driver; this.actions = new Actions(driver);}
+    public LikeHashTag(WebDriver driver) {this.driver = driver;}
 }
