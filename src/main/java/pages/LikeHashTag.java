@@ -1,25 +1,20 @@
 package pages;
 
 import auxiliary.Auxiliary;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class LikeHashTag {
     private WebDriver driver;
 
-    private FileWriter fileWriter;
-
-    private BufferedWriter bufferedWriter;
-
     protected Auxiliary auxiliary = new Auxiliary();
+
+    private Logger logger = Logger.getLogger(LikeHashTag.class);
 
     private By post = By.className("_9AhH0");
 
@@ -40,8 +35,8 @@ public class LikeHashTag {
     private int numberOfLikes = 0;
 
     public void findHashTag(String tag, String postType) {
-        WebElement search = driver.findElement(searchInput);
         try {
+            WebElement search = driver.findElement(searchInput);
             for (int i=0; i<tag.length(); i++) {
                 char c = tag.charAt(i);
                 String s = String.valueOf(c);
@@ -53,80 +48,78 @@ public class LikeHashTag {
             List<WebElement> results = driver.findElements(searchResult);
             List<WebElement> names = driver.findElements(searhName);
             if(results.size() > 0) {
-                fileWriter = new FileWriter("resources/history.txt", true);
-                bufferedWriter = new BufferedWriter(fileWriter);
                 for(int i=0; i<results.size(); i++) {
                     if(names.get(i).getText().equals(tag)) {
                         results.get(i).click();
                     }
                 }
-                bufferedWriter.write("Moved to target hashtag " + tag);
-                bufferedWriter.newLine();
-                bufferedWriter.close();
+                logger.info("Moved to target hashtag: " + tag);
                 TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
                 this.getPost(postType);
-                this.closePost();
+            }
+            else {
+                search.clear();
+                logger.warn("Couldn't find hashtag.");
+                TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
             }
         }
-        catch (InterruptedException | IOException e) {
+        catch (Exception e) {
+            logger.error("Failed to find hashtag.");
             e.printStackTrace();
         }
     }
 
     public void getPost(String postType) {
-        List<WebElement> elements = driver.findElements(post);
-        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
-        this.numberOfLikes = 0;
-        if(elements.size() > 0) {
-            try {
-                fileWriter = new FileWriter("resources/history.txt", true);
-                bufferedWriter = new BufferedWriter(fileWriter);
+        try {
+            List<WebElement> elements = driver.findElements(post);
+            JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+            this.numberOfLikes = 0;
+            if(elements.size() > 0) {
                 if (postType.equals("Top")) {
                     elements.get(0).click();
-                    bufferedWriter.write("Clicked to the first top post");
+                    logger.info("Clicked to the first top post");
                 }
                 if (postType.equals("Recent")) {
                     javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(recentlyPosts));
                     Thread.sleep(auxiliary.delayBetween(2000, 3000));
                     elements.get(9).click();
-                    bufferedWriter.write("Clicked to the first recently post");
+                    logger.info("Clicked to the first recently post");
                 }
-                bufferedWriter.newLine();
-                bufferedWriter.close();
                 Thread.sleep(auxiliary.delayBetween(2500, 3500));
                 this.likePost();
-            } catch (InterruptedException | IOException e) {
-                e.printStackTrace();
             }
+            else {
+                logger.warn("No post yet");
+            }
+        }catch (Exception e) {
+            logger.error("Failed to get post.");
+            e.printStackTrace();
         }
     }
 
     public void likePost() {
-        List<WebElement> elements = driver.findElements(svgElement);
-        String liked = elements.get(5).getAttribute("aria-label");
         try {
-            fileWriter = new FileWriter("resources/history.txt", true);
-            bufferedWriter = new BufferedWriter(fileWriter);
+            List<WebElement> elements = driver.findElements(svgElement);
+            String liked = elements.get(5).getAttribute("aria-label");
             if(liked.equals("Like")) {
                     //driver.findElement(likeButton).click();
                     numberOfLikes +=1;
-                    bufferedWriter.write("Liked the post");
-                    bufferedWriter.newLine();
+                    logger.info("Liked the post.");
                     TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
             }
             List<WebElement> arrow = driver.findElements(nextArrow);
-            if(arrow.size() > 0 && this.numberOfLikes < 2) {
+            if(arrow.size() > 0 && this.numberOfLikes < 3) {
                 arrow.get(0).click();
-                bufferedWriter.write("Moved to next post because previous post had been liked");
-                bufferedWriter.newLine();
-                bufferedWriter.close();
+                logger.info("Moved to the next post because the previous post had been liked");
                 Thread.sleep(auxiliary.delayBetween(3000, 4000));
                 this.likePost();
             }
             else {
+                logger.warn("Out of post");
                 this.closePost();
             }
-        }catch (InterruptedException | IOException e) {
+        }catch (Exception e) {
+            logger.error("Failed to like the post");
             e.printStackTrace();
         }
     }
@@ -135,16 +128,16 @@ public class LikeHashTag {
         List<WebElement> elements = driver.findElements(svgElement);
         if(elements.get(elements.size() - 1).getAttribute("aria-label").equals("Close")) {
             try {
-                fileWriter = new FileWriter("resources/history.txt", true);
-                bufferedWriter = new BufferedWriter(fileWriter);
                 elements.get(elements.size() - 1).click();
-                bufferedWriter.write("Closed the post");
-                bufferedWriter.newLine();
-                bufferedWriter.close();
+                logger.info("Closed the post");
                 TimeUnit.SECONDS.sleep(auxiliary.delayBetween(2, 4));
-            }catch (InterruptedException | IOException e) {
+            }catch (Exception e) {
+                logger.error("Couldn't close the post");
                 e.printStackTrace();
             }
+        }
+        else {
+            logger.warn("Couldn't find the close post button.");
         }
     }
 

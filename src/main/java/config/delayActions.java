@@ -6,13 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 public class delayActions {
     private Auxiliary auxiliary = new Auxiliary();
-    public void delayAfterAccessLoginPage () throws InterruptedException {
-        TimeUnit.SECONDS.sleep(1);
-    }
-
-    public void delayAfterTypeACharacter () throws InterruptedException {
-        Thread.sleep(auxiliary.delayBetween(100, 300));
-    }
+    public int delayAfterAccessLoginPage = 1;
+    public int delayAfterTypeACharacter = auxiliary.delayBetween(100, 300);
 
     public void delayAfterFillInUsernameField () throws InterruptedException {
         TimeUnit.SECONDS.sleep(1);

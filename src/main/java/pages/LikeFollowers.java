@@ -1,14 +1,12 @@
 package pages;
 
 import auxiliary.Auxiliary;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,9 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class LikeFollowers {
     private WebDriver driver;
 
-    private FileWriter fileWriter;
-
-    private BufferedWriter bufferedWriter;
+    private Logger logger = Logger.getLogger(LikeFollowers.class);
 
     protected Auxiliary auxiliary = new Auxiliary();
 
@@ -35,24 +31,26 @@ public class LikeFollowers {
 
     private By nextArrow = By.className("coreSpriteRightPaginationArrow");
 
+
+
     private List<String> likedFollowerList = new ArrayList<>();
 
     public void StartLikeFollowers() {
         List<WebElement> elements = driver.findElements(followerList);
         if(elements.get(1).getText().contains("follower")) {
             try {
-                fileWriter = new FileWriter("resources/history.txt", true);
-                bufferedWriter = new BufferedWriter(fileWriter);
                 elements.get(1).click();
-                bufferedWriter.write("Clicked follower list");
-                bufferedWriter.newLine();
-                bufferedWriter.close();
+                logger.info("Clicked follower list");
                 int delayTime = auxiliary.delayBetween(2, 4);
                 TimeUnit.SECONDS.sleep(delayTime);
                 this.getFollower();
-            }catch (InterruptedException | IOException e) {
+            }catch (Exception e) {
+                logger.error("Failed to clicked follower list");
                 e.printStackTrace();
             }
+        }
+        else {
+            logger.warn("Couldn't find follower list button.");
         }
     }
 
@@ -63,49 +61,45 @@ public class LikeFollowers {
         if(elements1.get(1).getText().contains("follower")) {
             numberOFFollowers = Integer.parseInt(elements1.get(1).getText().split("\\s")[0]);
         }
+        else {
+            logger.error("Couldn't get the number of followers");
+        }
         if(numberOFFollowers > 0) {
             JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
             if(numberOFFollowers > 12) {
                 try{
                     int x = numberOFFollowers / 12;
-                    fileWriter = new FileWriter("resources/history.txt", true);
-                    bufferedWriter = new BufferedWriter(fileWriter);
                     for(int i=0; i<x; i++) {
                         javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", elements.get(elements.size() - 1));
                         Thread.sleep(auxiliary.delayBetween(800, 1500));
                         elements = driver.findElements(follower);
                     }
-                    bufferedWriter.write("Scrolled the follower list to the bottom");
-                    bufferedWriter.newLine();
-                    bufferedWriter.close();
-                }catch (InterruptedException | IOException e) {
+                    logger.info("Scrolled the follower list to the bottom");
+                }catch (Exception e) {
+                    logger.error("Failed to scrolled the follower list to the bottom");
                     e.printStackTrace();
                 }
             }
             try {
-                fileWriter = new FileWriter("resources/history.txt", true);
-                bufferedWriter = new BufferedWriter(fileWriter);
                 int randomFollowerIndex = new Random().nextInt(numberOFFollowers);
                 while (this.likedFollowerList.contains(elements.get(randomFollowerIndex).getText())) {
                     randomFollowerIndex = new Random().nextInt(elements.size());
                 }
                 this.likedFollowerList.add(elements.get(randomFollowerIndex).getText());
-                //actions.moveToElement(elements.get(randomFollowerIndex)).perform();
                 javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", elements.get(randomFollowerIndex));
-                bufferedWriter.write("Moved to picked follower");
-                bufferedWriter.newLine();
+                logger.info("Moved to picked follower: " + elements.get(randomFollowerIndex).getText());
                 TimeUnit.SECONDS.sleep(auxiliary.delayBetween(2, 4));
                 elements.get(randomFollowerIndex).click();
-                bufferedWriter.write("Clicked to picked follower");
-                bufferedWriter.newLine();
-                bufferedWriter.close();
+                logger.info("Clicked to picked follower");
                 TimeUnit.SECONDS.sleep(auxiliary.delayBetween(4, 6));
                 this.getPost();
-            }catch (InterruptedException | IOException e) {
+            }catch (Exception e) {
+                logger.error("Failed to get follower");
                 e.printStackTrace();
             }
         }
         else {
+            logger.warn("No follower yet");
             this.close();
         }
     }
@@ -114,28 +108,23 @@ public class LikeFollowers {
         List<WebElement> elements = driver.findElements(post);
         if(elements.size() > 0) {
             try {
-                fileWriter = new FileWriter("resources/history.txt", true);
-                bufferedWriter = new BufferedWriter(fileWriter);
                 elements.get(0).click();
-                bufferedWriter.write("Clicked to the latest post of picked follower");
-                bufferedWriter.newLine();
-                bufferedWriter.close();
+                logger.info("Clicked to the latest post of picked follower");
                 TimeUnit.SECONDS.sleep(auxiliary.delayBetween(2, 4));
                 this.likePost();
-            }catch (InterruptedException | IOException e) {
+            }catch (Exception e) {
+                logger.error("Failed to get post");
                 e.printStackTrace();
             }
         }
         else {
+            logger.warn("No post yet");
             try {
-                fileWriter = new FileWriter("resources/history.txt", true);
-                bufferedWriter = new BufferedWriter(fileWriter);
                 driver.navigate().back();
-                bufferedWriter.write("Returned to follower list");
-                bufferedWriter.newLine();
-                bufferedWriter.close();
+                logger.info("Returned to follower list");
                 TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
-            }catch (InterruptedException | IOException e) {
+            }catch (Exception e) {
+                logger.error("Failed to return");
                 e.printStackTrace();
             }
         }
@@ -145,16 +134,15 @@ public class LikeFollowers {
         List<WebElement> elements = driver.findElements(svgElement);
         if(elements.get(elements.size() - 1).getAttribute("aria-label").equals("Close")) {
             try {
-                fileWriter = new FileWriter("resources/history.txt", true);
-                bufferedWriter = new BufferedWriter(fileWriter);
                 elements.get(elements.size() - 1).click();
-                bufferedWriter.write("Closed the post");
-                bufferedWriter.newLine();
-                bufferedWriter.close();
+                logger.info("Closed the post");
                 TimeUnit.SECONDS.sleep(auxiliary.delayBetween(2, 4));
-            }catch (InterruptedException | IOException e) {
+            }catch (Exception e) {
+                logger.error("Failed to closed the post");
                 e.printStackTrace();
             }
+        }else {
+            logger.warn("Couldn't find close button");
         }
     }
 
@@ -164,39 +152,38 @@ public class LikeFollowers {
         if(elements.get(2).getAttribute("aria-label").equals("Posts")) {
             liked = elements.get(9).getAttribute("aria-label");
         }
+
         if(liked.equals("Like")) {
             try {
-                fileWriter = new FileWriter("resources/history.txt", true);
-                bufferedWriter = new BufferedWriter(fileWriter);
-                driver.findElement(likeButton).click();
-                bufferedWriter.write("Liked the post");
-                bufferedWriter.newLine();
-                bufferedWriter.close();
+                //driver.findElement(likeButton).click();
+                logger.info("Liked the post");
                 Thread.sleep(auxiliary.delayBetween(3000, 4500));
                 this.close();
-            }catch (InterruptedException | IOException e) {
+            }catch (Exception e) {
+                logger.error("Failed to like the post");
                 e.printStackTrace();
             }
         }
-        else {
+        else if(liked.equals("Unlike")){
+            logger.info("Moved to the next post because the previous post had been liked");
             try {
-                fileWriter = new FileWriter("resources/history.txt", true);
-                bufferedWriter = new BufferedWriter(fileWriter);
                 List<WebElement> arrow = driver.findElements(nextArrow);
                 if(arrow.size() > 0) {
                     arrow.get(0).click();
-                    bufferedWriter.write("Moved to next post because previous post had been liked");
-                    bufferedWriter.newLine();
-                    bufferedWriter.close();
                     Thread.sleep(auxiliary.delayBetween(3000, 4000));
                     this.likePost();
                 }
                 else {
+                    logger.warn("Couldn't find the next post button");
                     this.close();
                 }
-            }catch (InterruptedException | IOException e) {
+            }catch (Exception e) {
+                logger.error("Failed to move to the next post");
                 e.printStackTrace();
             }
+        }
+        else {
+            logger.warn("Couldn't find like button");
         }
     }
 

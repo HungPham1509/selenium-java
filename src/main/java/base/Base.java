@@ -24,7 +24,7 @@ public class Base {
 
     protected Auxiliary auxiliary;
 
-    //private List<String> taglist = new ArrayList<String>() {{add("#chiba"); add("#kanagawa");}};
+    private List<String> taglist = new ArrayList<String>() {{add("#chiba"); add("#fsafdfsdgsjd"); add("#kanagawa");}};
 
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
@@ -46,8 +46,8 @@ public class Base {
 //            }
 //
 //            //Like users who liked your post
-//            likeList = new LikeList(driver);
-//            likeList.StartLikeBack();
+            likeList = new LikeList(driver);
+            likeList.StartLikeBack();
             //likeList.backToProfile();
 //
 //            logger.log(Level.INFO, "Finished like back users function");
@@ -61,7 +61,7 @@ public class Base {
 
             // like hashtag
 //            likeHashTag = new LikeHashTag(driver);
-//            for (String s : taglist) likeHashTag.findHashTag(s, "Recent");
+//            for (String s : taglist) likeHashTag.findHashTag(s, "Top");
         }
         catch (IOException e) {
             e.printStackTrace();
