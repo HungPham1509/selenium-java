@@ -1,6 +1,7 @@
 package pages;
 
 import auxiliary.Auxiliary;
+import config.InstagramElements;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -35,8 +36,8 @@ public class LikeFollowers {
 
     private List<String> likedFollowerList = new ArrayList<>();
 
-    public void StartLikeFollowers() {
-        List<WebElement> elements = driver.findElements(followerList);
+    public void StartLikeFollowers(List<String> excluded_users) {
+        List<WebElement> elements = driver.findElements(InstagramElements.followerList);
         if(elements.get(1).getText().contains("follower")) {
             try {
                 elements.get(1).click();
@@ -55,8 +56,8 @@ public class LikeFollowers {
     }
 
     public void getFollower() {
-        List<WebElement> elements = driver.findElements(follower);
-        List<WebElement> elements1 = driver.findElements(followerList);
+        List<WebElement> elements = driver.findElements(InstagramElements.follower);
+        List<WebElement> elements1 = driver.findElements(InstagramElements.followerList);
         int numberOFFollowers = 0;
         if(elements1.get(1).getText().contains("follower")) {
             numberOFFollowers = Integer.parseInt(elements1.get(1).getText().split("\\s")[0]);
@@ -72,7 +73,7 @@ public class LikeFollowers {
                     for(int i=0; i<x; i++) {
                         javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", elements.get(elements.size() - 1));
                         Thread.sleep(auxiliary.delayBetween(800, 1500));
-                        elements = driver.findElements(follower);
+                        elements = driver.findElements(InstagramElements.follower);
                     }
                     logger.info("Scrolled the follower list to the bottom");
                 }catch (Exception e) {
@@ -105,7 +106,7 @@ public class LikeFollowers {
     }
 
     public void getPost() {
-        List<WebElement> elements = driver.findElements(post);
+        List<WebElement> elements = driver.findElements(InstagramElements.post);
         if(elements.size() > 0) {
             try {
                 elements.get(0).click();
@@ -131,7 +132,7 @@ public class LikeFollowers {
     }
 
     public void close() {
-        List<WebElement> elements = driver.findElements(svgElement);
+        List<WebElement> elements = driver.findElements(InstagramElements.svgElement);
         if(elements.get(elements.size() - 1).getAttribute("aria-label").equals("Close")) {
             try {
                 elements.get(elements.size() - 1).click();
@@ -147,7 +148,7 @@ public class LikeFollowers {
     }
 
     public void likePost() {
-        List<WebElement> elements = driver.findElements(svgElement);
+        List<WebElement> elements = driver.findElements(InstagramElements.svgElement);
         String liked = elements.get(8).getAttribute("aria-label");
         if(elements.get(2).getAttribute("aria-label").equals("Posts")) {
             liked = elements.get(9).getAttribute("aria-label");
@@ -155,7 +156,7 @@ public class LikeFollowers {
 
         if(liked.equals("Like")) {
             try {
-                //driver.findElement(likeButton).click();
+                //driver.findElement(InstagramElements.likeButton).click();
                 logger.info("Liked the post");
                 Thread.sleep(auxiliary.delayBetween(3000, 4500));
                 this.close();
@@ -167,7 +168,7 @@ public class LikeFollowers {
         else if(liked.equals("Unlike")){
             logger.info("Moved to the next post because the previous post had been liked");
             try {
-                List<WebElement> arrow = driver.findElements(nextArrow);
+                List<WebElement> arrow = driver.findElements(InstagramElements.nextArrow);
                 if(arrow.size() > 0) {
                     arrow.get(0).click();
                     Thread.sleep(auxiliary.delayBetween(3000, 4000));

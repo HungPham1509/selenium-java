@@ -1,0 +1,108 @@
+2020-08-17 14:23:46,790 INFO  LoginPage:88 - Start like function.
+2020-08-17 14:23:48,215 INFO  LoginPage:20 - Accessed Instagram login page.
+2020-08-17 14:23:55,375 INFO  LoginPage:37 - Filled in username input.
+2020-08-17 14:23:58,869 INFO  LoginPage:54 - Filled in password input.
+2020-08-17 14:23:59,916 INFO  LoginPage:65 - Clicked login button.
+2020-08-17 14:23:59,916 INFO  LoginPage:66 - Login Successfully
+2020-08-17 14:24:06,260 INFO  LoginPage:78 - Accessed profile.
+2020-08-17 14:35:08,628 INFO  LoginPage:20 - Accessed Instagram login page.
+2020-08-17 14:36:54,482 INFO  LoginPage:20 - Accessed Instagram login page.
+2020-08-17 14:39:23,977 INFO  LoginPage:27 - Accessed Instagram login page.
+2020-08-17 14:40:36,788 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-17 14:42:31,265 INFO  LoginPage:95 - Start like function.
+2020-08-17 14:42:35,414 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-17 14:42:39,453 INFO  LoginPage:30 - Failed to Accessed Instagram login page.
+2020-08-17 14:42:40,481 INFO  LoginPage:85 - Accessed profile.
+2020-08-17 14:43:44,645 INFO  LoginPage:95 - Start like function.
+2020-08-17 14:43:48,679 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-17 14:43:59,935 INFO  LoginPage:85 - Accessed profile.
+2020-08-17 17:57:12,642 INFO  LoginPage:95 - Start like function.
+2020-08-17 17:57:13,021 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-17 17:57:25,490 INFO  LoginPage:44 - Filled in username input.
+2020-08-17 17:57:28,913 INFO  LoginPage:61 - Filled in password input.
+2020-08-17 17:57:29,961 INFO  LoginPage:72 - Clicked login button.
+2020-08-17 17:57:29,961 INFO  LoginPage:73 - Login Successfully
+2020-08-17 17:57:39,034 INFO  LoginPage:85 - Accessed profile.
+2020-08-17 17:57:45,100 INFO  LikeFollowers:44 - Clicked follower list
+2020-08-17 17:57:48,266 INFO  LikeFollowers:78 - Scrolled the follower list to the bottom
+2020-08-17 17:57:48,297 INFO  LikeFollowers:91 - Moved to picked follower: truongquocdat.a2.pl2012
+2020-08-17 17:57:52,340 INFO  LikeFollowers:94 - Clicked to picked follower
+2020-08-17 17:57:58,397 INFO  LikeFollowers:113 - Clicked to the latest post of picked follower
+2020-08-17 17:58:02,429 INFO  LikeFollowers:160 - Liked the post
+2020-08-17 17:58:05,811 INFO  LikeFollowers:139 - Closed the post
+2020-08-17 17:58:09,769 INFO  LoginPage:85 - Accessed profile.
+2020-08-17 17:58:13,830 INFO  LikeFollowers:44 - Clicked follower list
+2020-08-17 17:58:18,713 INFO  LikeFollowers:78 - Scrolled the follower list to the bottom
+2020-08-17 17:58:18,743 INFO  LikeFollowers:91 - Moved to picked follower: soodrohan.6
+2020-08-17 17:58:21,783 INFO  LikeFollowers:94 - Clicked to picked follower
+2020-08-17 17:58:25,793 WARN  LikeFollowers:122 - No post yet
+2020-08-17 17:58:25,924 INFO  LikeFollowers:125 - Returned to follower list
+2020-08-17 17:58:31,847 INFO  LoginPage:85 - Accessed profile.
+2020-08-17 17:58:35,915 INFO  LikeFollowers:44 - Clicked follower list
+2020-08-17 17:58:38,801 INFO  LikeFollowers:78 - Scrolled the follower list to the bottom
+2020-08-17 17:58:38,844 INFO  LikeFollowers:91 - Moved to picked follower: kamalbalotiya1990
+2020-08-17 17:58:40,882 INFO  LikeFollowers:94 - Clicked to picked follower
+2020-08-17 17:58:45,943 INFO  LikeFollowers:113 - Clicked to the latest post of picked follower
+2020-08-17 17:58:48,972 INFO  LikeFollowers:160 - Liked the post
+2020-08-17 17:58:52,757 INFO  LikeFollowers:139 - Closed the post
+2020-08-17 17:58:56,286 INFO  LoginPage:85 - Accessed profile.
+2020-08-17 18:02:55,153 INFO  LoginPage:95 - Start like function.
+2020-08-17 18:02:56,987 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-17 18:03:07,037 INFO  LoginPage:85 - Accessed profile.
+2020-08-17 18:03:13,095 INFO  LikeComments:38 - Clicked to the latest post.
+2020-08-17 18:03:16,113 WARN  LikeComments:88 - No comment yet.
+2020-08-17 18:03:16,154 INFO  LikeComments:92 - Moved to the next post because the previous post had no comment
+2020-08-17 18:03:19,987 INFO  LikeComments:77 - Moved to picked comment
+2020-08-17 18:03:21,988 INFO  LikeComments:81 - Liked picked comment
+2020-08-17 18:03:25,976 INFO  LikeComments:77 - Moved to picked comment
+2020-08-17 18:03:28,976 INFO  LikeComments:81 - Liked picked comment
+2020-08-17 18:03:33,038 INFO  LikeComments:77 - Moved to picked comment
+2020-08-17 18:03:36,038 INFO  LikeComments:81 - Liked picked comment
+2020-08-17 18:03:39,723 INFO  LikeComments:130 - Closed the post
+2020-08-17 18:03:46,154 INFO  Base:124 - Job Complete.
+2020-08-17 18:04:44,831 INFO  LoginPage:95 - Start like function.
+2020-08-17 18:04:48,266 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-17 18:04:56,432 INFO  LoginPage:85 - Accessed profile.
+2020-08-17 18:05:00,487 INFO  LikeList:48 - Clicked to the latest post
+2020-08-17 18:05:03,284 WARN  LikeList:94 - No one has liked this post yet.
+2020-08-17 18:05:03,321 INFO  LikeList:98 - Moved to the next post because the previous post hadn't been liked
+2020-08-17 18:05:06,706 INFO  LikeList:88 - Clicked to the like list of the post
+2020-08-17 18:05:11,624 INFO  LikeList:169 - Moved to tet.isi's profile
+2020-08-17 18:05:16,633 WARN  LikeList:190 - The liker has no post yet.
+2020-08-17 18:05:16,673 INFO  LikeList:192 - Returned to my latest post
+2020-08-17 18:05:19,761 INFO  LikeList:88 - Clicked to the like list of the post
+2020-08-17 18:05:26,249 INFO  LikeList:169 - Moved to truongquocdat.a2.pl2012's profile
+2020-08-17 18:05:30,297 INFO  LikeList:185 - Clicked to the latest post of picked liker
+2020-08-17 18:05:33,324 INFO  LikeList:227 - Liked the post.
+2020-08-17 18:05:38,383 INFO  LikeList:206 - Closed the post
+2020-08-17 18:05:43,517 INFO  LikeList:268 - Returned to the lastest post
+2020-08-17 18:05:46,607 INFO  LikeList:88 - Clicked to the like list of the post
+2020-08-17 18:05:52,943 INFO  LikeList:169 - Moved to akifumi.takada's profile
+2020-08-17 18:05:55,998 INFO  LikeList:185 - Clicked to the latest post of picked liker
+2020-08-17 18:05:58,024 INFO  LikeList:227 - Liked the post.
+2020-08-17 18:06:02,087 INFO  LikeList:206 - Closed the post
+2020-08-17 18:06:06,540 INFO  LikeList:268 - Returned to the lastest post
+2020-08-17 18:06:10,935 INFO  Base:124 - Job Complete.
+2020-08-17 18:06:58,096 INFO  LoginPage:95 - Start like function.
+2020-08-17 18:06:59,941 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-17 18:07:11,558 INFO  LoginPage:85 - Accessed profile.
+2020-08-17 18:07:17,613 INFO  LikeList:48 - Clicked to the latest post
+2020-08-17 18:07:20,506 WARN  LikeList:94 - No one has liked this post yet.
+2020-08-17 18:07:20,545 INFO  LikeList:98 - Moved to the next post because the previous post hadn't been liked
+2020-08-17 18:07:23,850 INFO  LikeList:88 - Clicked to the like list of the post
+2020-08-17 18:07:28,604 INFO  LikeList:169 - Moved to akifumi.takada's profile
+2020-08-17 18:07:32,661 INFO  LikeList:185 - Clicked to the latest post of picked liker
+2020-08-17 18:07:36,696 INFO  LikeList:227 - Liked the post.
+2020-08-17 18:07:41,762 INFO  LikeList:206 - Closed the post
+2020-08-17 18:07:48,526 INFO  LikeList:268 - Returned to the lastest post
+2020-08-17 18:07:52,618 INFO  LikeList:88 - Clicked to the like list of the post
+2020-08-17 18:07:59,121 INFO  LikeList:169 - Moved to truongquocdat.a2.pl2012's profile
+2020-08-17 18:08:04,166 INFO  LikeList:185 - Clicked to the latest post of picked liker
+2020-08-17 18:08:08,192 INFO  LikeList:227 - Liked the post.
+2020-08-17 18:08:11,245 INFO  LikeList:206 - Closed the post
+2020-08-17 18:08:16,782 INFO  LikeList:268 - Returned to the lastest post
+2020-08-17 18:08:18,869 INFO  LikeList:88 - Clicked to the like list of the post
+2020-08-17 18:08:24,203 INFO  LikeList:169 - Moved to tet.isi's profile
+2020-08-17 18:08:27,212 WARN  LikeList:190 - The liker has no post yet.
+2020-08-17 18:08:27,300 INFO  LikeList:192 - Returned to my latest post
+2020-08-17 18:08:35,092 INFO  Base:124 - Job Complete.

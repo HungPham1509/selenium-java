@@ -1,11 +1,13 @@
 package pages;
 
 import auxiliary.Auxiliary;
+import config.InstagramElements;
 import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -13,17 +15,17 @@ public class LoginPage {
     private WebDriver driver;
     protected Auxiliary auxiliary = new Auxiliary();
     private Logger logger = Logger.getLogger(LoginPage.class);
-    private By usernameField = By.name("username");
-    private By passwordField = By.name("password");
-    private By loginButton = By.className("L3NKy");
-    private String username = "pham_hung99"; // kawaken.izakaya
-    private String password = "thtmhfc1509"; //kawaken080808
 
     public void accessInstagram() {
         try {
-            driver.get("https://www.instagram.com/accounts/login/?source=auth_switcher");
+            driver.get(InstagramElements.instagramLoginUrl);
             logger.info("Accessed Instagram login page.");
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(auxiliary.delayBetween(4, 7));
+            List<WebElement> elements = driver.findElements(InstagramElements.notNowButton);
+            if(elements.size() > 0 && elements.get(0).getText().equals("Not Now")) {
+                elements.get(0).click();
+                TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
+            }
         } catch (Exception e) {
             logger.info("Failed to Accessed Instagram login page.");
             e.printStackTrace();
@@ -36,7 +38,7 @@ public class LoginPage {
                 char c = username.charAt(i);
                 String s = String.valueOf(c);
                 int delayTime = auxiliary.delayBetween(100, 300);
-                driver.findElement(usernameField).sendKeys(s);
+                driver.findElement(InstagramElements.usernameField).sendKeys(s);
                 Thread.sleep(delayTime);
             }
             logger.info("Filled in username input.");
@@ -53,7 +55,7 @@ public class LoginPage {
                 char c = password.charAt(i);
                 String s = String.valueOf(c);
                 int delayTime = auxiliary.delayBetween(100, 300);
-                driver.findElement(passwordField).sendKeys(s);
+                driver.findElement(InstagramElements.passwordField).sendKeys(s);
                 Thread.sleep(delayTime);
             }
             logger.info("Filled in password input.");
@@ -66,7 +68,7 @@ public class LoginPage {
 
     public void clickLoginButton() {
         try {
-            driver.findElement(loginButton).click();
+            driver.findElement(InstagramElements.loginButton).click();
             logger.info("Clicked login button.");
             logger.info("Login Successfully");
             int delayTime = auxiliary.delayBetween(5, 8);
@@ -79,7 +81,7 @@ public class LoginPage {
 
     public void profile(String username) {
         try {
-            driver.get("https://www.instagram.com/" + username);
+            driver.get(InstagramElements.instagramUrl + username);
             logger.info("Accessed profile.");
             int delayTime = auxiliary.delayBetween(4, 6);
             TimeUnit.SECONDS.sleep(delayTime);
@@ -89,13 +91,15 @@ public class LoginPage {
         }
     }
 
-    public void startLogIn() {
+    public void startLogIn(String username, String password) {
         logger.info("Start like function.");
         this.accessInstagram();
-        this.setUsernameField(this.username);
-        this.setPasswordField(this.password);
-        this.clickLoginButton();
-        this.profile(this.username);
+        // kawaken.izakaya
+        //this.setUsernameField(username);
+        //kawaken080808
+        //this.setPasswordField(password);
+        //this.clickLoginButton();
+        this.profile(username);
     }
 
     public LoginPage(WebDriver driver) throws IOException {

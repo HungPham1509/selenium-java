@@ -1,6 +1,7 @@
 package pages;
 
 import auxiliary.Auxiliary;
+import config.InstagramElements;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -39,14 +40,14 @@ public class LikeList {
 
     private boolean stopLike = false;
 
-    public void StartLikeBack() {
-        List<WebElement> elements = driver.findElements(post);
+    public void StartLikeBack(int number_of_likes, List<String> excluded_users) {
+        List<WebElement> elements = driver.findElements(InstagramElements.post);
         if(elements.size() > 0) {
             try {
                 elements.get(0).click();
                 logger.info("Clicked to the latest post");
                 Thread.sleep(auxiliary.delayBetween(2500, 3500));
-                for(int i=0; i<3; i++) {
+                for(int i=0; i<number_of_likes; i++) {
                     if(!stopLike) {
                         this.getLikeList();
                     }
@@ -63,7 +64,7 @@ public class LikeList {
 
     public void getLikeList() {
         try {
-            List<WebElement> elements = driver.findElements(likeList);
+            List<WebElement> elements = driver.findElements(InstagramElements.likeList);
             if(elements.size() > 0) {
                 int index = 2;
                 if(elements.get(2).getText().equals("")) {
@@ -91,7 +92,7 @@ public class LikeList {
                 }
                 else {
                     logger.warn("No one has liked this post yet.");
-                    List<WebElement> arrow = driver.findElements(nextArrow);
+                    List<WebElement> arrow = driver.findElements(InstagramElements.nextArrow);
                     if(arrow.size() > 0) {
                         arrow.get(0).click();
                         logger.info("Moved to the next post because the previous post hadn't been liked");
@@ -113,7 +114,7 @@ public class LikeList {
 
     public void getLiker(int numberOfLikes) {
         try {
-            List<WebElement> elements = driver.findElements(liker);
+            List<WebElement> elements = driver.findElements(InstagramElements.liker);
             JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
             List<String> likersInOneScroll = new ArrayList<>();
             if(elements.size() > 0) {
@@ -127,7 +128,7 @@ public class LikeList {
                     for (int i = 0; i < x; i++) {
                         javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", elements.get(elements.size() - 1));
                         Thread.sleep(auxiliary.delayBetween(800, 1500));
-                        elements = driver.findElements(liker);
+                        elements = driver.findElements(InstagramElements.liker);
                         for (WebElement element : elements) {
                             if (!this.allLikers.contains(element.getText())) {
                                 this.allLikers.add(element.getText());
@@ -150,7 +151,7 @@ public class LikeList {
                 while (!likersInOneScroll.contains(this.allLikers.get(randomLikerIndex))) {
                     javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", elements.get(0));
                     Thread.sleep(auxiliary.delayBetween(800, 1500));
-                    elements = driver.findElements(liker);
+                    elements = driver.findElements(InstagramElements.liker);
                     for(WebElement element: elements) {
                         if(!likersInOneScroll.contains(element.getText())) {
                             likersInOneScroll.add(element.getText());
@@ -178,7 +179,7 @@ public class LikeList {
     public void getPost() {
         try {
             this.numberOfClikingNextTimes = 0;
-            List<WebElement> elements = driver.findElements(post);
+            List<WebElement> elements = driver.findElements(InstagramElements.post);
             if(elements.size() > 0) {
                 elements.get(0).click();
                 logger.info("Clicked to the latest post of picked liker");
@@ -198,7 +199,7 @@ public class LikeList {
     }
 
     public void closePost() {
-        List<WebElement> elements = driver.findElements(svgElement);
+        List<WebElement> elements = driver.findElements(InstagramElements.svgElement);
         if(elements.get(elements.size() - 1).getAttribute("aria-label").equals("Close")) {
             try {
                 elements.get(elements.size() - 1).click();
@@ -216,20 +217,20 @@ public class LikeList {
 
     public void likePost() {
         try {
-            List<WebElement> elements = driver.findElements(svgElement);
+            List<WebElement> elements = driver.findElements(InstagramElements.svgElement);
             String liked = elements.get(8).getAttribute("aria-label");
             if(elements.get(2).getAttribute("aria-label").equals("Posts")) {
                 liked = elements.get(9).getAttribute("aria-label");
             }
             if(liked.equals("Like")) {
-                //driver.findElement(likeButton).click();
+                //driver.findElement(InstagramElements.likeButton).click();
                 logger.info("Liked the post.");
                 TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
                 this.closePost();
                 this.getBack();
             }
             else if(liked.equals("Unlike")){
-                List<WebElement> arrow = driver.findElements(nextArrow);
+                List<WebElement> arrow = driver.findElements(InstagramElements.nextArrow);
                 if(arrow.size() > 0) {
                     arrow.get(0).click();
                     this.numberOfClikingNextTimes += 1;

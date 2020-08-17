@@ -1,6 +1,7 @@
 package pages;
 
 import auxiliary.Auxiliary;
+import config.InstagramElements;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -29,14 +30,14 @@ public class LikeComments {
 
     private By nextArrow = By.className("coreSpriteRightPaginationArrow");
 
-    public void StartLikeComments() {
-        List<WebElement> elements = driver.findElements(post);
+    public void StartLikeComments(int number_of_likes, List<String> excluded_users) {
+        List<WebElement> elements = driver.findElements(InstagramElements.post);
         if(elements.size() > 0) {
             try {
                 elements.get(0).click();
                 logger.info("Clicked to the latest post.");
                 Thread.sleep(auxiliary.delayBetween(2500, 3500));
-                this.likeComment();
+                this.likeComment(number_of_likes);
             }catch (Exception e) {
                 logger.error("Failed to get the latest post.");
                 e.printStackTrace();
@@ -47,12 +48,12 @@ public class LikeComments {
         }
     }
 
-    public void likeComment() {
+    public void likeComment(int number_of_likes) {
         try {
             List<String> likeStatus = new ArrayList<String>();
             int index = 14;
-            List<WebElement> elements = driver.findElements(svgElement);
-            List<WebElement> likeCommentButtons = driver.findElements(likeCommentButton);
+            List<WebElement> elements = driver.findElements(InstagramElements.svgElement);
+            List<WebElement> likeCommentButtons = driver.findElements(InstagramElements.likeCommentButton);
             JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
             // check whether instagram account has igtv or not
             if(elements.get(2).getAttribute("aria-label").equals("Posts")) {
@@ -62,15 +63,15 @@ public class LikeComments {
                 for(int i=0; i<5; i++) {
                     this.moreComments();
                 }
-                elements = driver.findElements(svgElement);
-                likeCommentButtons = driver.findElements(likeCommentButton);
+                elements = driver.findElements(InstagramElements.svgElement);
+                likeCommentButtons = driver.findElements(InstagramElements.likeCommentButton);
                 for (int i = index; i < elements.size(); i++) {
                     if (elements.get(i).getAttribute("aria-label").equals("Like") || elements.get(i).getAttribute("aria-label").equals("Unlike")) {
                         likeStatus.add(elements.get(i).getAttribute("aria-label"));
                     }
                 }
 
-                for(int j=0; j<3; j++) {
+                for(int j=0; j<number_of_likes; j++) {
                     int randomCommentIndex = new Random().nextInt(likeCommentButtons.size());
                     javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", likeCommentButtons.get(randomCommentIndex));
                     logger.info("Moved to picked comment");
@@ -85,12 +86,12 @@ public class LikeComments {
             }
             else {
                 logger.warn("No comment yet.");
-                List<WebElement> arrow = driver.findElements(nextArrow);
+                List<WebElement> arrow = driver.findElements(InstagramElements.nextArrow);
                 if(arrow.size() > 0) {
                     arrow.get(0).click();
                     logger.info("Moved to the next post because the previous post had no comment");
                     Thread.sleep(auxiliary.delayBetween(3000, 4000));
-                    this.likeComment();
+                    this.likeComment(number_of_likes);
                 }
                 else {
                     logger.warn("Out of post");
@@ -106,12 +107,12 @@ public class LikeComments {
 
     public void moreComments() {
         try {
-            boolean button = driver.findElements(moreCommentsButton).size() > 0;
+            boolean button = driver.findElements(InstagramElements.moreCommentsButton).size() > 0;
             JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
             if(button) {
-                javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", driver.findElements(moreCommentsButton).get(0));
+                javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", driver.findElements(InstagramElements.moreCommentsButton).get(0));
                 Thread.sleep(auxiliary.delayBetween(2500, 3500));
-                driver.findElements(moreCommentsButton).get(0).click();
+                driver.findElements(InstagramElements.moreCommentsButton).get(0).click();
                 logger.info("Clicked to more comments");
                 Thread.sleep(auxiliary.delayBetween(3000, 4000));
             }
@@ -122,7 +123,7 @@ public class LikeComments {
     }
 
     public void closePost() {
-        List<WebElement> elements = driver.findElements(svgElement);
+        List<WebElement> elements = driver.findElements(InstagramElements.svgElement);
         if(elements.get(elements.size() - 1).getAttribute("aria-label").equals("Close")) {
             try {
                 elements.get(elements.size() - 1).click();

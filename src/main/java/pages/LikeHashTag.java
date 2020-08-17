@@ -1,6 +1,7 @@
 package pages;
 
 import auxiliary.Auxiliary;
+import config.InstagramElements;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -34,9 +35,9 @@ public class LikeHashTag {
 
     private int numberOfLikes = 0;
 
-    public void findHashTag(String tag, String postType) {
+    public void findHashTag(String tag, String postType, List<String> excluded_users) {
         try {
-            WebElement search = driver.findElement(searchInput);
+            WebElement search = driver.findElement(InstagramElements.searchInput);
             for (int i=0; i<tag.length(); i++) {
                 char c = tag.charAt(i);
                 String s = String.valueOf(c);
@@ -45,8 +46,8 @@ public class LikeHashTag {
                 Thread.sleep(delayTime);
             }
             Thread.sleep(auxiliary.delayBetween(2000, 3000));
-            List<WebElement> results = driver.findElements(searchResult);
-            List<WebElement> names = driver.findElements(searhName);
+            List<WebElement> results = driver.findElements(InstagramElements.searchResult);
+            List<WebElement> names = driver.findElements(InstagramElements.searhName);
             if(results.size() > 0) {
                 for(int i=0; i<results.size(); i++) {
                     if(names.get(i).getText().equals(tag)) {
@@ -71,7 +72,7 @@ public class LikeHashTag {
 
     public void getPost(String postType) {
         try {
-            List<WebElement> elements = driver.findElements(post);
+            List<WebElement> elements = driver.findElements(InstagramElements.post);
             JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
             this.numberOfLikes = 0;
             if(elements.size() > 0) {
@@ -80,7 +81,7 @@ public class LikeHashTag {
                     logger.info("Clicked to the first top post");
                 }
                 if (postType.equals("Recent")) {
-                    javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(recentlyPosts));
+                    javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(InstagramElements.recentlyPosts));
                     Thread.sleep(auxiliary.delayBetween(2000, 3000));
                     elements.get(9).click();
                     logger.info("Clicked to the first recently post");
@@ -99,15 +100,15 @@ public class LikeHashTag {
 
     public void likePost() {
         try {
-            List<WebElement> elements = driver.findElements(svgElement);
+            List<WebElement> elements = driver.findElements(InstagramElements.svgElement);
             String liked = elements.get(5).getAttribute("aria-label");
             if(liked.equals("Like")) {
-                    //driver.findElement(likeButton).click();
+                    //driver.findElement(InstagramElements.likeButton).click();
                     numberOfLikes +=1;
                     logger.info("Liked the post.");
                     TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
             }
-            List<WebElement> arrow = driver.findElements(nextArrow);
+            List<WebElement> arrow = driver.findElements(InstagramElements.nextArrow);
             if(arrow.size() > 0 && this.numberOfLikes < 3) {
                 arrow.get(0).click();
                 logger.info("Moved to the next post because the previous post had been liked");
@@ -125,7 +126,7 @@ public class LikeHashTag {
     }
 
     public void closePost() {
-        List<WebElement> elements = driver.findElements(svgElement);
+        List<WebElement> elements = driver.findElements(InstagramElements.svgElement);
         if(elements.get(elements.size() - 1).getAttribute("aria-label").equals("Close")) {
             try {
                 elements.get(elements.size() - 1).click();
