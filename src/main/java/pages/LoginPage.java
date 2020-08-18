@@ -3,11 +3,16 @@ package pages;
 import auxiliary.Auxiliary;
 import config.InstagramElements;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.io.IOException;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 
 
@@ -91,15 +96,115 @@ public class LoginPage {
         }
     }
 
-    public void startLogIn(String username, String password) {
+    public void startLogIn(String username, String password, boolean autoLogIn) {
         logger.info("Start like function.");
         this.accessInstagram();
-        // kawaken.izakaya
-        //this.setUsernameField(username);
-        //kawaken080808
-        //this.setPasswordField(password);
-        //this.clickLoginButton();
+        if(!autoLogIn) {
+            this.setUsernameField(username);  //kawaken.izakaya
+            this.setPasswordField(password);  //kawaken080808
+            this.clickLoginButton();
+        }
         this.profile(username);
+    }
+
+    public void saveCookies(String username, String password) {
+        try {
+            FileWriter accountsFileWriter = new FileWriter("accounts.data", true);
+            BufferedWriter accountsBufferedWriter = new BufferedWriter(accountsFileWriter);
+            accountsBufferedWriter.write(username);
+            accountsBufferedWriter.newLine();
+            accountsBufferedWriter.close();
+            accountsFileWriter.close();
+            this.startLogIn(username, password, false);
+
+            // Write cookies to file
+            FileWriter cookiesFileWriter = new FileWriter("cookies.data", true);
+            BufferedWriter cookiesBufferedWriter = new BufferedWriter(cookiesFileWriter);
+            for(Cookie ck : driver.manage().getCookies())
+            {
+                if(ck.getName().equals("ds_user_id") | ck.getName().equals("sessionid")) {
+                    cookiesBufferedWriter.write((ck.getName()+";"+ck.getValue()+";"+ck.getDomain()+";"+ck.getPath()+";"+ck.getExpiry()+";"+ck.isSecure()));
+                    cookiesBufferedWriter.newLine();
+                }
+            }
+            cookiesBufferedWriter.newLine();
+            cookiesBufferedWriter.close();
+            cookiesFileWriter.close();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void autoLogIn(String username, String password, List<String> accounts) {
+        try {
+            FileReader cookiesFileReader = new FileReader("cookies.data");
+            BufferedReader cookiesBufferedReader = new BufferedReader(cookiesFileReader);
+            String strline;
+            List<List<String>> cookies = new ArrayList<>();
+            List<String> cookie = new ArrayList<>();
+            while ((strline = cookiesBufferedReader.readLine()) != null) {
+                if (!strline.isEmpty()) {
+                    cookie.add(strline);
+                } else {
+                    cookies.add(cookie);
+                    cookie = new ArrayList<>();
+                }
+            }
+            cookiesBufferedReader.close();
+            cookiesFileReader.close();
+
+            int accountIndex = accounts.indexOf(username);
+            for (String s : cookies.get(accountIndex)) {
+                StringTokenizer token = new StringTokenizer(s, ";");
+                while (token.hasMoreTokens()) {
+                    String name = token.nextToken();
+                    String value = token.nextToken();
+                    String domain = token.nextToken();
+                    String path = token.nextToken();
+                    Date expiry = null;
+                    String val;
+                    if (!(val = token.nextToken()).equals("null")) {
+                        expiry = new SimpleDateFormat("E MMM dd HH:mm:ss zzz y").parse(val);
+                    }
+                    boolean isSecure = Boolean.parseBoolean(token.nextToken());
+                    Date now = new Date();
+                    if(name.equals("ds_user_id") && expiry.compareTo(now) <= 0) {
+                        accounts.remove(accountIndex);
+                        cookies.remove(accountIndex);
+                        FileWriter accountsFileWriter = new FileWriter("accounts.data");
+                        BufferedWriter accountsBufferedWriter = new BufferedWriter(accountsFileWriter);
+                        accountsBufferedWriter.write("");
+                        for(String acc : accounts) {
+                            accountsBufferedWriter.append(acc);
+                            accountsBufferedWriter.newLine();
+                        }
+                        accountsBufferedWriter.close();
+                        accountsFileWriter.close();
+
+
+                        FileWriter cookiesFileWriter = new FileWriter("cookies.data");
+                        BufferedWriter cookiesBufferedWriter = new BufferedWriter(cookiesFileWriter);
+                        cookiesBufferedWriter.write("");
+                        for(int i=0; i<cookies.size(); i++) {
+                            for(String ck : cookies.get(i)) {
+                                cookiesBufferedWriter.append(ck);
+                                cookiesBufferedWriter.newLine();
+                            }
+                            cookiesBufferedWriter.newLine();
+                        }
+                        cookiesBufferedReader.close();
+                        cookiesBufferedWriter.close();
+                        this.saveCookies(username, password);
+                        return;
+                    }
+                    Cookie ck = new Cookie(name, value, domain, path, expiry, isSecure);
+                    driver.manage().addCookie(ck);
+                }
+            }
+            this.startLogIn(username, username, true);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public LoginPage(WebDriver driver) throws IOException {

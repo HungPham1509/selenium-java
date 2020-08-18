@@ -106,3 +106,108 @@
 2020-08-17 18:08:27,212 WARN  LikeList:190 - The liker has no post yet.
 2020-08-17 18:08:27,300 INFO  LikeList:192 - Returned to my latest post
 2020-08-17 18:08:35,092 INFO  Base:124 - Job Complete.
+2020-08-18 09:49:16,206 INFO  LoginPage:95 - Start like function.
+2020-08-18 09:49:18,483 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-18 09:49:29,887 INFO  LoginPage:85 - Accessed profile.
+2020-08-18 09:49:39,133 INFO  Base:124 - Job Complete.
+2020-08-18 09:55:38,806 INFO  LoginPage:95 - Start like function.
+2020-08-18 09:55:42,533 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-18 09:55:55,650 INFO  LoginPage:85 - Accessed profile.
+2020-08-18 10:10:02,719 INFO  LoginPage:95 - Start like function.
+2020-08-18 10:10:05,451 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-18 10:10:16,544 INFO  LoginPage:85 - Accessed profile.
+2020-08-18 11:27:10,368 INFO  LoginPage:95 - Start like function.
+2020-08-18 11:27:13,456 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-18 11:27:20,631 INFO  LoginPage:85 - Accessed profile.
+2020-08-18 11:27:40,874 INFO  LoginPage:95 - Start like function.
+2020-08-18 11:27:43,489 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-18 11:27:53,671 INFO  LoginPage:85 - Accessed profile.
+2020-08-18 11:40:58,798 INFO  LoginPage:95 - Start like function.
+2020-08-18 11:40:59,185 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-18 11:41:06,759 INFO  LoginPage:44 - Filled in username input.
+2020-08-18 11:41:10,292 INFO  LoginPage:61 - Filled in password input.
+2020-08-18 11:41:11,338 INFO  LoginPage:72 - Clicked login button.
+2020-08-18 11:41:11,338 INFO  LoginPage:73 - Login Successfully
+2020-08-18 11:41:19,050 INFO  LoginPage:85 - Accessed profile.
+2020-08-18 11:42:35,071 INFO  LoginPage:95 - Start like function.
+2020-08-18 11:42:35,465 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-18 11:42:44,787 INFO  LoginPage:44 - Filled in username input.
+2020-08-18 11:42:48,316 INFO  LoginPage:61 - Filled in password input.
+2020-08-18 11:42:49,363 INFO  LoginPage:72 - Clicked login button.
+2020-08-18 11:42:49,363 INFO  LoginPage:73 - Login Successfully
+2020-08-18 11:42:56,880 INFO  LoginPage:85 - Accessed profile.
+2020-08-18 11:43:20,439 INFO  LoginPage:95 - Start like function.
+2020-08-18 11:43:23,642 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-18 11:43:34,890 INFO  LoginPage:85 - Accessed profile.
+2020-08-18 14:09:01,538 INFO  LoginPage:95 - Start like function.
+2020-08-18 14:09:04,789 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-18 14:09:15,233 INFO  LoginPage:85 - Accessed profile.
+2020-08-18 14:10:28,438 INFO  LoginPage:95 - Start like function.
+2020-08-18 14:10:30,154 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-18 14:10:40,437 INFO  LoginPage:85 - Accessed profile.
+2020-08-18 16:24:29,676 INFO  LoginPage:95 - Start like function.
+2020-08-18 16:24:32,953 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-18 16:24:45,273 INFO  LoginPage:85 - Accessed profile.
+2020-08-18 16:24:53,644 INFO  Base:160 - Job Complete.
+2020-08-18 16:26:38,721 INFO  Base:161 - Job Complete.
+2020-08-18 16:27:45,935 INFO  LoginPage:95 - Start like function.
+2020-08-18 16:27:48,976 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-18 16:27:54,102 INFO  LoginPage:85 - Accessed profile.
+2020-08-18 16:28:01,274 INFO  Base:163 - Job Complete.
+2020-08-18 16:28:23,076 INFO  LoginPage:95 - Start like function.
+2020-08-18 16:28:27,322 INFO  LoginPage:22 - Accessed Instagram login page.
+2020-08-18 16:28:35,565 INFO  LoginPage:85 - Accessed profile.
+2020-08-18 16:28:42,923 INFO  Base:163 - Job Complete.
+2020-08-18 17:19:02,575 INFO  LoginPage:98 - Start like function.
+2020-08-18 17:19:02,967 INFO  LoginPage:25 - Accessed Instagram login page.
+2020-08-18 17:19:12,399 INFO  LoginPage:47 - Filled in username input.
+2020-08-18 17:19:15,814 INFO  LoginPage:64 - Filled in password input.
+2020-08-18 17:19:16,862 INFO  LoginPage:75 - Clicked login button.
+2020-08-18 17:19:16,862 INFO  LoginPage:76 - Login Successfully
+2020-08-18 17:19:24,896 INFO  LoginPage:88 - Accessed profile.
+2020-08-18 17:32:05,974 INFO  LoginPage:100 - Start like function.
+2020-08-18 17:32:09,287 INFO  LoginPage:27 - Accessed Instagram login page.
+2020-08-18 17:32:19,561 INFO  LoginPage:90 - Accessed profile.
+2020-08-18 17:38:19,396 INFO  LoginPage:100 - Start like function.
+2020-08-18 17:38:19,780 INFO  LoginPage:27 - Accessed Instagram login page.
+2020-08-18 17:38:27,349 INFO  LoginPage:49 - Filled in username input.
+2020-08-18 17:38:30,604 INFO  LoginPage:66 - Filled in password input.
+2020-08-18 17:38:31,648 INFO  LoginPage:77 - Clicked login button.
+2020-08-18 17:38:31,648 INFO  LoginPage:78 - Login Successfully
+2020-08-18 17:38:40,736 INFO  LoginPage:90 - Accessed profile.
+2020-08-18 17:38:45,797 INFO  LoginPage:100 - Start like function.
+2020-08-18 17:38:47,580 INFO  LoginPage:27 - Accessed Instagram login page.
+2020-08-18 17:38:59,000 INFO  LoginPage:90 - Accessed profile.
+2020-08-18 17:40:23,178 INFO  LoginPage:100 - Start like function.
+2020-08-18 17:40:26,260 INFO  LoginPage:27 - Accessed Instagram login page.
+2020-08-18 17:40:36,527 INFO  LoginPage:90 - Accessed profile.
+2020-08-18 17:41:15,362 INFO  LoginPage:100 - Start like function.
+2020-08-18 17:41:15,734 INFO  LoginPage:27 - Accessed Instagram login page.
+2020-08-18 17:41:22,987 INFO  LoginPage:49 - Filled in username input.
+2020-08-18 17:41:26,504 INFO  LoginPage:66 - Filled in password input.
+2020-08-18 17:41:27,550 INFO  LoginPage:77 - Clicked login button.
+2020-08-18 17:41:27,550 INFO  LoginPage:78 - Login Successfully
+2020-08-18 17:41:34,668 INFO  LoginPage:90 - Accessed profile.
+2020-08-18 17:42:30,839 INFO  LoginPage:100 - Start like function.
+2020-08-18 17:42:31,273 INFO  LoginPage:27 - Accessed Instagram login page.
+2020-08-18 17:42:39,595 INFO  LoginPage:49 - Filled in username input.
+2020-08-18 17:42:43,231 INFO  LoginPage:66 - Filled in password input.
+2020-08-18 17:42:44,274 INFO  LoginPage:77 - Clicked login button.
+2020-08-18 17:42:44,274 INFO  LoginPage:78 - Login Successfully
+2020-08-18 17:42:53,421 INFO  LoginPage:90 - Accessed profile.
+2020-08-18 18:04:04,065 INFO  LoginPage:100 - Start like function.
+2020-08-18 18:04:05,870 INFO  LoginPage:27 - Accessed Instagram login page.
+2020-08-18 18:04:19,216 INFO  LoginPage:90 - Accessed profile.
+2020-08-18 18:07:53,582 INFO  LoginPage:100 - Start like function.
+2020-08-18 18:07:55,213 INFO  LoginPage:27 - Accessed Instagram login page.
+2020-08-18 18:08:06,527 INFO  LoginPage:90 - Accessed profile.
+2020-08-18 18:12:15,985 INFO  LoginPage:100 - Start like function.
+2020-08-18 18:12:17,711 INFO  LoginPage:27 - Accessed Instagram login page.
+2020-08-18 18:12:28,969 INFO  LoginPage:90 - Accessed profile.
+2020-08-18 18:30:20,206 INFO  LoginPage:100 - Start like function.
+2020-08-18 18:30:20,691 INFO  LoginPage:27 - Accessed Instagram login page.
+2020-08-18 18:30:29,230 INFO  LoginPage:49 - Filled in username input.
+2020-08-18 18:30:32,334 INFO  LoginPage:66 - Filled in password input.
+2020-08-18 18:30:33,376 INFO  LoginPage:77 - Clicked login button.
+2020-08-18 18:30:33,376 INFO  LoginPage:78 - Login Successfully
+2020-08-18 18:30:41,451 INFO  LoginPage:90 - Accessed profile.
