@@ -368,3 +368,111 @@
 2020-08-19 15:49:11,109 WARN  LikeComments:79 - All comments have been liked.
 2020-08-19 15:49:11,118 WARN  LikeComments:88 - Out of post
 2020-08-19 15:49:14,621 INFO  LikeComments:174 - Closed the post
+2020-08-19 16:28:38,983 INFO  LoginPage:108 - Start like function.
+2020-08-19 16:28:44,156 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 16:28:52,214 INFO  LoginPage:96 - Login Successfully
+2020-08-19 16:28:53,415 INFO  LoginPage:98 - Accessed profile.
+2020-08-19 16:28:59,506 INFO  LikeFollowers:54 - Clicked follower list
+2020-08-19 16:29:01,557 INFO  LikeFollowers:100 - Moved to picked follower: kamalbalotiya1990
+2020-08-19 16:29:03,606 INFO  LikeFollowers:103 - Clicked to picked follower
+2020-08-19 16:29:07,662 INFO  LikeFollowers:117 - Clicked to the latest post of picked follower
+2020-08-19 16:29:11,739 INFO  LikeFollowers:164 - Liked the post
+2020-08-19 16:29:15,183 INFO  LikeFollowers:143 - Closed the post
+2020-08-19 16:29:19,663 INFO  LikeFollowers:210 - Returned to the follower list
+2020-08-19 16:29:22,713 INFO  LikeFollowers:100 - Moved to picked follower: kamalbalotiya1990
+2020-08-19 16:29:25,791 INFO  LikeFollowers:103 - Clicked to picked follower
+2020-08-19 16:29:29,847 INFO  LikeFollowers:117 - Clicked to the latest post of picked follower
+2020-08-19 16:29:33,872 INFO  LikeFollowers:173 - You have liked this post.
+2020-08-19 16:29:33,914 INFO  LikeFollowers:179 - Moved to the next post because the previous post had been liked
+2020-08-19 16:29:37,588 INFO  LikeFollowers:164 - Liked the post
+2020-08-19 16:29:41,912 INFO  LikeFollowers:143 - Closed the post
+2020-08-19 16:29:48,419 INFO  LikeFollowers:210 - Returned to the follower list
+2020-08-19 16:29:51,469 INFO  LikeFollowers:100 - Moved to picked follower: kamalbalotiya1990
+2020-08-19 16:29:55,549 INFO  LikeFollowers:103 - Clicked to picked follower
+2020-08-19 16:30:01,623 INFO  LikeFollowers:117 - Clicked to the latest post of picked follower
+2020-08-19 16:30:05,650 INFO  LikeFollowers:173 - You have liked this post.
+2020-08-19 16:30:05,704 INFO  LikeFollowers:179 - Moved to the next post because the previous post had been liked
+2020-08-19 16:30:09,211 INFO  LikeFollowers:173 - You have liked this post.
+2020-08-19 16:30:09,241 INFO  LikeFollowers:179 - Moved to the next post because the previous post had been liked
+2020-08-19 16:30:12,635 INFO  LikeFollowers:164 - Liked the post
+2020-08-19 16:30:16,071 INFO  LikeFollowers:143 - Closed the post
+2020-08-19 16:30:28,050 INFO  LikeFollowers:210 - Returned to the follower list
+2020-08-19 16:39:35,832 INFO  LoginPage:108 - Start like function.
+2020-08-19 16:39:36,216 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 16:40:14,645 INFO  LoginPage:108 - Start like function.
+2020-08-19 16:40:15,039 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 16:40:23,578 INFO  LoginPage:50 - Filled in username input.
+2020-08-19 16:40:27,862 INFO  LoginPage:67 - Filled in password input.
+2020-08-19 16:40:30,173 INFO  LoginPage:79 - Clicked login button.
+2020-08-19 16:40:37,173 INFO  LoginPage:96 - Login Successfully
+2020-08-19 16:40:38,865 INFO  LoginPage:98 - Accessed profile.
+2020-08-19 16:40:43,963 INFO  LikeFollowers:54 - Clicked follower list
+2020-08-19 16:40:45,964 ERROR LikeFollowers:71 - Failed to scrolled the follower list to the bottom
+2020-08-19 16:40:46,005 INFO  LikeFollowers:103 - Moved to picked follower: hoangkhanhhhhhhhhh
+2020-08-19 16:40:49,046 INFO  LikeFollowers:106 - Clicked to picked follower
+2020-08-19 16:40:54,057 WARN  LikeFollowers:129 - No post yet
+2020-08-19 16:40:54,218 INFO  LikeFollowers:132 - Returned to follower list
+2020-08-19 16:40:59,979 INFO  LikeFollowers:213 - Returned to the follower list
+2020-08-19 16:41:02,989 ERROR LikeFollowers:110 - Failed to get follower
+2020-08-19 16:41:06,809 INFO  LikeFollowers:213 - Returned to the follower list
+2020-08-19 16:41:09,824 ERROR LikeFollowers:110 - Failed to get follower
+2020-08-19 16:41:12,773 INFO  LikeFollowers:213 - Returned to the follower list
+2020-08-19 16:52:03,083 INFO  LoginPage:108 - Start like function.
+2020-08-19 16:52:07,501 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 16:52:15,560 INFO  LoginPage:96 - Login Successfully
+2020-08-19 16:52:17,560 INFO  LoginPage:98 - Accessed profile.
+2020-08-19 16:52:21,646 INFO  LikeFollowers:54 - Clicked follower list
+2020-08-19 16:52:23,646 ERROR LikeFollowers:71 - Failed to scrolled the follower list to the bottom
+2020-08-19 16:52:23,692 INFO  LikeFollowers:105 - Moved to picked follower: hoshi_no_kazu
+2020-08-19 16:52:26,702 ERROR LikeFollowers:113 - Failed to get follower
+2020-08-19 16:52:29,810 INFO  LikeFollowers:217 - Returned to the follower list
+2020-08-19 16:58:14,787 INFO  LoginPage:108 - Start like function.
+2020-08-19 16:58:16,342 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 16:58:27,404 INFO  LoginPage:96 - Login Successfully
+2020-08-19 16:58:28,514 INFO  LoginPage:98 - Accessed profile.
+2020-08-19 16:58:33,593 INFO  LikeFollowers:53 - Clicked follower list
+2020-08-19 16:58:38,864 INFO  LikeFollowers:69 - Scrolled the follower list to the bottom
+2020-08-19 16:58:38,904 INFO  LikeFollowers:105 - Moved to picked follower: shokuichi
+2020-08-19 16:58:41,948 INFO  LikeFollowers:109 - Clicked to picked follower
+2020-08-19 16:58:47,010 INFO  LikeFollowers:123 - Clicked to the latest post of picked follower
+2020-08-19 16:58:50,037 INFO  LikeFollowers:171 - Liked the post
+2020-08-19 16:58:54,195 INFO  LikeFollowers:150 - Closed the post
+2020-08-19 16:58:58,571 INFO  LikeFollowers:217 - Returned to the follower list
+2020-08-19 16:59:00,621 INFO  LikeFollowers:105 - Moved to picked follower: sneezingcat191
+2020-08-19 16:59:03,660 INFO  LikeFollowers:109 - Clicked to picked follower
+2020-08-19 16:59:07,705 INFO  LikeFollowers:123 - Clicked to the latest post of picked follower
+2020-08-19 16:59:10,732 INFO  LikeFollowers:180 - You have liked this post.
+2020-08-19 16:59:10,774 INFO  LikeFollowers:186 - Moved to the next post because the previous post had been liked
+2020-08-19 16:59:14,433 INFO  LikeFollowers:171 - Liked the post
+2020-08-19 16:59:18,779 INFO  LikeFollowers:150 - Closed the post
+2020-08-19 16:59:25,962 INFO  LikeFollowers:217 - Returned to the follower list
+2020-08-19 16:59:28,002 INFO  LikeFollowers:105 - Moved to picked follower: anichiki2019
+2020-08-19 16:59:30,040 INFO  LikeFollowers:109 - Clicked to picked follower
+2020-08-19 16:59:34,092 INFO  LikeFollowers:123 - Clicked to the latest post of picked follower
+2020-08-19 16:59:36,124 INFO  LikeFollowers:171 - Liked the post
+2020-08-19 16:59:40,650 INFO  LikeFollowers:150 - Closed the post
+2020-08-19 16:59:45,488 INFO  LikeFollowers:217 - Returned to the follower list
+2020-08-19 17:25:45,275 INFO  LoginPage:108 - Start like function.
+2020-08-19 17:25:46,581 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 17:25:51,594 INFO  LoginPage:96 - Login Successfully
+2020-08-19 17:26:01,602 INFO  LoginPage:98 - Accessed profile.
+2020-08-19 17:26:07,690 INFO  LikeFollowers:53 - Clicked follower list
+2020-08-19 17:26:12,981 INFO  LikeFollowers:69 - Scrolled the follower list to the bottom
+2020-08-19 17:26:13,023 INFO  LikeFollowers:105 - Moved to picked follower: shokuichi
+2020-08-19 17:26:16,067 INFO  LikeFollowers:109 - Clicked to picked follower
+2020-08-19 17:26:22,125 INFO  LikeFollowers:123 - Clicked to the latest post of picked follower
+2020-08-19 17:26:25,155 INFO  LikeFollowers:171 - Liked the post
+2020-08-19 17:26:29,564 INFO  LikeFollowers:150 - Closed the post
+2020-08-19 17:26:35,866 INFO  LikeFollowers:217 - Returned to the follower list
+2020-08-19 17:26:37,908 INFO  LikeFollowers:105 - Moved to picked follower: watashigoto_seeds
+2020-08-19 17:26:39,942 INFO  LikeFollowers:109 - Clicked to picked follower
+2020-08-19 17:26:44,989 INFO  LikeFollowers:123 - Clicked to the latest post of picked follower
+2020-08-19 17:26:47,021 INFO  LikeFollowers:171 - Liked the post
+2020-08-19 17:26:50,583 INFO  LikeFollowers:150 - Closed the post
+2020-08-19 17:26:55,816 INFO  LikeFollowers:217 - Returned to the follower list
+2020-08-19 17:26:57,857 INFO  LikeFollowers:105 - Moved to picked follower: teramachi_ichibacoji
+2020-08-19 17:26:59,890 INFO  LikeFollowers:109 - Clicked to picked follower
+2020-08-19 17:27:05,941 INFO  LikeFollowers:123 - Clicked to the latest post of picked follower
+2020-08-19 17:27:09,969 INFO  LikeFollowers:171 - Liked the post
+2020-08-19 17:27:13,736 INFO  LikeFollowers:150 - Closed the post
+2020-08-19 17:27:17,975 INFO  LikeFollowers:217 - Returned to the follower list

@@ -45,7 +45,7 @@ public class Base {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("headless");
         chromeOptions.addArguments("window-size=1600x900");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(chromeOptions);
         auxiliary = new Auxiliary();
 
         try {
@@ -72,10 +72,7 @@ public class Base {
                 switch (like_category) {
                     case "like_followers":
                         likeFollowers = new LikeFollowers(driver);
-                        for(int i=0; i<number_of_likes; i++) {
-                            likeFollowers.StartLikeFollowers(excluded_users);
-                            loginPage.profile(instagram_username);
-                        }
+                        likeFollowers.StartLikeFollowers(number_of_likes, excluded_users);
                         break;
                     case "like_comments":
                         likeComments = new LikeComments(driver);
