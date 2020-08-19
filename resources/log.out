@@ -211,3 +211,160 @@
 2020-08-18 18:30:33,376 INFO  LoginPage:77 - Clicked login button.
 2020-08-18 18:30:33,376 INFO  LoginPage:78 - Login Successfully
 2020-08-18 18:30:41,451 INFO  LoginPage:90 - Accessed profile.
+2020-08-19 10:22:20,982 INFO  LoginPage:105 - Start like function.
+2020-08-19 10:22:21,377 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 10:22:28,197 INFO  LoginPage:50 - Filled in username input.
+2020-08-19 10:22:31,543 INFO  LoginPage:67 - Filled in password input.
+2020-08-19 10:22:32,588 INFO  LoginPage:78 - Clicked login button.
+2020-08-19 10:22:37,608 WARN  LoginPage:82 - Incorrect username and password.
+2020-08-19 10:25:34,040 INFO  LoginPage:105 - Start like function.
+2020-08-19 10:25:35,190 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 10:25:42,062 INFO  LoginPage:50 - Filled in username input.
+2020-08-19 10:25:45,616 INFO  LoginPage:67 - Filled in password input.
+2020-08-19 10:25:46,661 INFO  LoginPage:78 - Clicked login button.
+2020-08-19 10:25:51,681 WARN  LoginPage:82 - Incorrect username and password.
+2020-08-19 14:13:23,299 INFO  LoginPage:105 - Start like function.
+2020-08-19 14:13:25,030 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 14:13:30,045 INFO  LoginPage:93 - Login Successfully
+2020-08-19 14:13:31,028 INFO  LoginPage:95 - Accessed profile.
+2020-08-19 14:13:36,039 WARN  LikeComments:47 - No post yet.
+2020-08-19 14:27:19,005 INFO  LoginPage:105 - Start like function.
+2020-08-19 14:27:19,414 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 14:27:26,428 INFO  LoginPage:93 - Login Successfully
+2020-08-19 14:27:27,248 INFO  LoginPage:95 - Accessed profile.
+2020-08-19 14:27:32,260 WARN  LikeComments:47 - No post yet.
+2020-08-19 14:28:36,698 INFO  LoginPage:105 - Start like function.
+2020-08-19 14:28:37,107 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 14:28:44,808 INFO  LoginPage:50 - Filled in username input.
+2020-08-19 14:28:48,953 INFO  LoginPage:67 - Filled in password input.
+2020-08-19 14:28:51,165 INFO  LoginPage:78 - Clicked login button.
+2020-08-19 14:28:58,187 WARN  LoginPage:82 - Incorrect username and password.
+2020-08-19 14:28:58,197 WARN  LikeComments:47 - No post yet.
+2020-08-19 14:31:12,551 INFO  LoginPage:105 - Start like function.
+2020-08-19 14:31:12,937 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 14:31:19,425 INFO  LoginPage:50 - Filled in username input.
+2020-08-19 14:31:23,036 INFO  LoginPage:67 - Filled in password input.
+2020-08-19 14:31:25,408 INFO  LoginPage:78 - Clicked login button.
+2020-08-19 14:31:32,429 WARN  LoginPage:82 - Incorrect username and password.
+2020-08-19 14:31:48,860 INFO  LoginPage:105 - Start like function.
+2020-08-19 14:31:49,239 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 14:31:55,742 INFO  LoginPage:50 - Filled in username input.
+2020-08-19 14:32:00,798 INFO  LoginPage:67 - Filled in password input.
+2020-08-19 14:32:02,629 INFO  LoginPage:78 - Clicked login button.
+2020-08-19 14:32:07,647 ERROR LoginPage:86 - Failed to log in.
+2020-08-19 14:32:07,650 INFO  LoginPage:93 - Login Successfully
+2020-08-19 14:32:09,095 INFO  LoginPage:95 - Accessed profile.
+2020-08-19 14:32:15,171 INFO  LikeComments:38 - Clicked to the latest post.
+2020-08-19 15:01:47,132 INFO  LoginPage:108 - Start like function.
+2020-08-19 15:01:49,809 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 15:01:59,866 INFO  LoginPage:96 - Login Successfully
+2020-08-19 15:02:01,444 INFO  LoginPage:98 - Accessed profile.
+2020-08-19 15:02:06,524 INFO  LikeComments:40 - Clicked to the latest post.
+2020-08-19 15:02:12,650 ERROR LikeComments:132 - Failed to load more comments
+2020-08-19 15:02:15,800 ERROR LikeComments:132 - Failed to load more comments
+2020-08-19 15:02:19,054 ERROR LikeComments:132 - Failed to load more comments
+2020-08-19 15:02:22,140 ERROR LikeComments:132 - Failed to load more comments
+2020-08-19 15:02:24,772 ERROR LikeComments:132 - Failed to load more comments
+2020-08-19 15:06:08,484 INFO  LoginPage:108 - Start like function.
+2020-08-19 15:06:08,867 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 15:06:16,493 INFO  LoginPage:50 - Filled in username input.
+2020-08-19 15:06:21,368 INFO  LoginPage:67 - Filled in password input.
+2020-08-19 15:06:22,987 INFO  LoginPage:79 - Clicked login button.
+2020-08-19 15:06:30,988 INFO  LoginPage:96 - Login Successfully
+2020-08-19 15:06:32,559 INFO  LoginPage:98 - Accessed profile.
+2020-08-19 15:06:37,632 INFO  LikeComments:40 - Clicked to the latest post.
+2020-08-19 15:06:44,184 INFO  LikeComments:128 - Clicked to more comments
+2020-08-19 15:06:51,113 INFO  LikeComments:128 - Clicked to more comments
+2020-08-19 15:06:58,048 INFO  LikeComments:128 - Clicked to more comments
+2020-08-19 15:07:04,419 INFO  LikeComments:128 - Clicked to more comments
+2020-08-19 15:07:10,883 INFO  LikeComments:128 - Clicked to more comments
+2020-08-19 15:28:18,347 INFO  LoginPage:108 - Start like function.
+2020-08-19 15:28:22,376 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 15:28:29,390 INFO  LoginPage:96 - Login Successfully
+2020-08-19 15:28:30,430 INFO  LoginPage:98 - Accessed profile.
+2020-08-19 15:28:35,485 INFO  LikeComments:40 - Clicked to the latest post.
+2020-08-19 15:28:38,985 WARN  LikeComments:106 - No comment yet.
+2020-08-19 15:28:39,023 INFO  LikeComments:110 - Moved to the next post because the previous post had no comment
+2020-08-19 15:28:42,393 INFO  LikeComments:90 - Moved to picked comment
+2020-08-19 15:28:44,395 INFO  LikeComments:94 - Liked picked comment
+2020-08-19 15:28:47,905 INFO  LikeComments:90 - Moved to picked comment
+2020-08-19 15:28:49,906 INFO  LikeComments:94 - Liked picked comment
+2020-08-19 15:28:53,516 INFO  LikeComments:90 - Moved to picked comment
+2020-08-19 15:28:55,516 INFO  LikeComments:94 - Liked picked comment
+2020-08-19 15:31:08,023 INFO  LoginPage:108 - Start like function.
+2020-08-19 15:31:12,102 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 15:31:20,165 INFO  LoginPage:96 - Login Successfully
+2020-08-19 15:31:21,386 INFO  LoginPage:98 - Accessed profile.
+2020-08-19 15:31:25,441 INFO  LikeComments:40 - Clicked to the latest post.
+2020-08-19 15:31:28,308 WARN  LikeComments:106 - No comment yet.
+2020-08-19 15:31:28,345 INFO  LikeComments:110 - Moved to the next post because the previous post had no comment
+2020-08-19 15:31:31,894 INFO  LikeComments:90 - Moved to pham_hung99's comment
+2020-08-19 15:31:35,894 INFO  LikeComments:94 - Liked pham_hung99's comment
+2020-08-19 15:31:40,487 INFO  LikeComments:90 - Moved to tet.isi's comment
+2020-08-19 15:31:44,487 INFO  LikeComments:94 - Liked tet.isi's comment
+2020-08-19 15:31:47,580 INFO  LikeComments:90 - Moved to hoangkhanhhhhhhhhh's comment
+2020-08-19 15:31:49,581 INFO  LikeComments:94 - Liked hoangkhanhhhhhhhhh's comment
+2020-08-19 15:34:46,369 INFO  LoginPage:108 - Start like function.
+2020-08-19 15:34:49,766 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 15:34:58,824 INFO  LoginPage:96 - Login Successfully
+2020-08-19 15:34:59,856 INFO  LoginPage:98 - Accessed profile.
+2020-08-19 15:35:03,911 INFO  LikeComments:40 - Clicked to the latest post.
+2020-08-19 15:35:06,951 WARN  LikeComments:109 - No comment yet.
+2020-08-19 15:35:06,991 INFO  LikeComments:113 - Moved to the next post because the previous post had no comment
+2020-08-19 15:35:10,782 INFO  LikeComments:90 - Moved to tet.isi's comment
+2020-08-19 15:35:13,783 INFO  LikeComments:94 - Liked tet.isi's comment
+2020-08-19 15:35:16,921 INFO  LikeComments:90 - Moved to hoangkhanhhhhhhhhh's comment
+2020-08-19 15:35:18,921 INFO  LikeComments:94 - Liked hoangkhanhhhhhhhhh's comment
+2020-08-19 15:35:22,764 INFO  LikeComments:90 - Moved to pham_hung99's comment
+2020-08-19 15:35:25,764 INFO  LikeComments:94 - Liked pham_hung99's comment
+2020-08-19 15:35:29,526 INFO  LikeComments:90 - Moved to pham_hung99's comment
+2020-08-19 15:35:32,526 INFO  LikeComments:94 - Liked pham_hung99's comment
+2020-08-19 15:35:35,816 INFO  LikeComments:90 - Moved to pham_hung99's comment
+2020-08-19 15:35:38,817 INFO  LikeComments:94 - Liked pham_hung99's comment
+2020-08-19 15:35:42,154 INFO  LikeComments:152 - Closed the post
+2020-08-19 15:39:48,763 INFO  LoginPage:108 - Start like function.
+2020-08-19 15:39:51,803 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 15:40:00,857 INFO  LoginPage:96 - Login Successfully
+2020-08-19 15:40:01,874 INFO  LoginPage:98 - Accessed profile.
+2020-08-19 15:40:06,932 INFO  LikeComments:41 - Clicked to the latest post.
+2020-08-19 15:40:10,363 WARN  LikeComments:113 - No comment yet.
+2020-08-19 15:40:10,408 INFO  LikeComments:117 - Moved to the next post because the previous post had no comment
+2020-08-19 15:40:14,579 INFO  LikeComments:94 - Moved to pham_hung99's comment
+2020-08-19 15:40:19,580 INFO  LikeComments:98 - Liked pham_hung99's comment
+2020-08-19 15:40:24,573 INFO  LikeComments:94 - Moved to pham_hung99's comment
+2020-08-19 15:40:27,575 INFO  LikeComments:98 - Liked pham_hung99's comment
+2020-08-19 15:40:30,728 INFO  LikeComments:94 - Moved to pham_hung99's comment
+2020-08-19 15:40:36,728 INFO  LikeComments:98 - Liked pham_hung99's comment
+2020-08-19 15:40:40,925 INFO  LikeComments:94 - Moved to hoangkhanhhhhhhhhh's comment
+2020-08-19 15:40:46,926 INFO  LikeComments:98 - Liked hoangkhanhhhhhhhhh's comment
+2020-08-19 15:40:51,030 INFO  LikeComments:94 - Moved to tet.isi's comment
+2020-08-19 15:40:55,031 INFO  LikeComments:102 - This comment has been liked
+2020-08-19 15:40:55,098 INFO  LikeComments:156 - Closed the post
+2020-08-19 15:46:24,496 INFO  LoginPage:108 - Start like function.
+2020-08-19 15:46:27,540 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 15:46:36,600 INFO  LoginPage:96 - Login Successfully
+2020-08-19 15:46:37,969 INFO  LoginPage:98 - Accessed profile.
+2020-08-19 15:46:43,025 INFO  LikeComments:41 - Clicked to the latest post.
+2020-08-19 15:46:45,573 WARN  LikeComments:129 - No comment yet.
+2020-08-19 15:46:45,612 INFO  LikeComments:133 - Moved to the next post because the previous post had no comment
+2020-08-19 15:46:49,241 INFO  LikeComments:106 - Moved to pham_hung99's comment
+2020-08-19 15:46:53,290 INFO  LikeComments:113 - Liked pham_hung99's comment
+2020-08-19 15:46:57,512 INFO  LikeComments:106 - Moved to tet.isi's comment
+2020-08-19 15:47:00,513 INFO  LikeComments:117 - This comment has been liked
+2020-08-19 15:47:04,242 INFO  LikeComments:106 - Moved to hoangkhanhhhhhhhhh's comment
+2020-08-19 15:47:08,287 INFO  LikeComments:113 - Liked hoangkhanhhhhhhhhh's comment
+2020-08-19 15:47:12,279 INFO  LikeComments:106 - Moved to pham_hung99's comment
+2020-08-19 15:47:16,325 INFO  LikeComments:113 - Liked pham_hung99's comment
+2020-08-19 15:47:20,216 INFO  LikeComments:106 - Moved to pham_hung99's comment
+2020-08-19 15:47:25,260 INFO  LikeComments:113 - Liked pham_hung99's comment
+2020-08-19 15:47:28,366 INFO  LikeComments:172 - Closed the post
+2020-08-19 15:48:46,941 INFO  LoginPage:108 - Start like function.
+2020-08-19 15:48:50,140 INFO  LoginPage:28 - Accessed Instagram login page.
+2020-08-19 15:48:59,198 INFO  LoginPage:96 - Login Successfully
+2020-08-19 15:49:00,293 INFO  LoginPage:98 - Accessed profile.
+2020-08-19 15:49:04,350 INFO  LikeComments:41 - Clicked to the latest post.
+2020-08-19 15:49:06,943 WARN  LikeComments:131 - No comment yet.
+2020-08-19 15:49:06,981 INFO  LikeComments:135 - Moved to the next post because the previous post had no comment
+2020-08-19 15:49:11,109 WARN  LikeComments:79 - All comments have been liked.
+2020-08-19 15:49:11,118 WARN  LikeComments:88 - Out of post
+2020-08-19 15:49:14,621 INFO  LikeComments:174 - Closed the post

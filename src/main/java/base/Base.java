@@ -68,27 +68,29 @@ public class Base {
                 loginPage.saveCookies(instagram_username, instagram_password);
             }
 
-            switch (like_category) {
-                case "like_followers":
-                    likeFollowers = new LikeFollowers(driver);
-                    for(int i=0; i<number_of_likes; i++) {
-                        likeFollowers.StartLikeFollowers(excluded_users);
-                        loginPage.profile(instagram_username);
-                    }
-                    break;
-                case "like_comments":
-                    likeComments = new LikeComments(driver);
-                    likeComments.StartLikeComments(number_of_likes, excluded_users);
-                    break;
-                case "like_back":
-                    likeList = new LikeList(driver);
-                    likeList.StartLikeBack(number_of_likes, excluded_users);
-                    break;
-                case "like_hashtag":
-                    likeHashTag = new LikeHashTag(driver);
-                    for (String s : hashtags) likeHashTag.findHashTag(s, target, excluded_users);
-                    break;
-                default:
+            if(loginPage.isAuthenticated) {
+                switch (like_category) {
+                    case "like_followers":
+                        likeFollowers = new LikeFollowers(driver);
+                        for(int i=0; i<number_of_likes; i++) {
+                            likeFollowers.StartLikeFollowers(excluded_users);
+                            loginPage.profile(instagram_username);
+                        }
+                        break;
+                    case "like_comments":
+                        likeComments = new LikeComments(driver);
+                        likeComments.StartLikeComments(number_of_likes, excluded_users);
+                        break;
+                    case "like_back":
+                        likeList = new LikeList(driver);
+                        likeList.StartLikeBack(number_of_likes, excluded_users);
+                        break;
+                    case "like_hashtag":
+                        likeHashTag = new LikeHashTag(driver);
+                        for (String s : hashtags) likeHashTag.findHashTag(s, target, excluded_users);
+                        break;
+                    default:
+                }
             }
         }
         catch (Exception e) {

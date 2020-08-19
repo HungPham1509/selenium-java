@@ -30,6 +30,9 @@ public class LikeComments {
 
     private By nextArrow = By.className("coreSpriteRightPaginationArrow");
 
+    private List<Integer> likedCommentUsersIndex = new ArrayList<>();
+    private List<String> likedCommentUsers = new ArrayList<>();
+
     public void StartLikeComments(int number_of_likes, List<String> excluded_users) {
         List<WebElement> elements = driver.findElements(InstagramElements.post);
         if(elements.size() > 0) {
@@ -54,6 +57,7 @@ public class LikeComments {
             int index = 14;
             List<WebElement> elements = driver.findElements(InstagramElements.svgElement);
             List<WebElement> likeCommentButtons = driver.findElements(InstagramElements.likeCommentButton);
+            List<WebElement> commentUsers = driver.findElements(InstagramElements.commentUser);
             JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
             // check whether instagram account has igtv or not
             if(elements.get(2).getAttribute("aria-label").equals("Posts")) {
@@ -65,24 +69,64 @@ public class LikeComments {
                 }
                 elements = driver.findElements(InstagramElements.svgElement);
                 likeCommentButtons = driver.findElements(InstagramElements.likeCommentButton);
+                commentUsers = driver.findElements(InstagramElements.commentUser);
                 for (int i = index; i < elements.size(); i++) {
                     if (elements.get(i).getAttribute("aria-label").equals("Like") || elements.get(i).getAttribute("aria-label").equals("Unlike")) {
                         likeStatus.add(elements.get(i).getAttribute("aria-label"));
                     }
                 }
-
-                for(int j=0; j<number_of_likes; j++) {
-                    int randomCommentIndex = new Random().nextInt(likeCommentButtons.size());
-                    javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", likeCommentButtons.get(randomCommentIndex));
-                    logger.info("Moved to picked comment");
-                    TimeUnit.SECONDS.sleep(auxiliary.delayBetween(2, 4));
-                    if (likeStatus.get(randomCommentIndex).equals("Like")) {
-                        //likeCommentButtons.get(randomCommentIndex).click();
-                        logger.info("Liked picked comment");
-                        Thread.sleep(auxiliary.delayBetween(3000, 5000));
+                if(!likeStatus.contains("Like")) {
+                    logger.warn("All comments have been liked.");
+                    List<WebElement> arrow = driver.findElements(InstagramElements.nextArrow);
+                    if(arrow.size() > 0) {
+                        arrow.get(0).click();
+                        logger.info("Moved to the next post because all the previous post's comments have been liked");
+                        Thread.sleep(auxiliary.delayBetween(3000, 4000));
+                        this.likeComment(number_of_likes);
+                    }
+                    else {
+                        Thread.sleep(auxiliary.delayBetween(1000, 2000));
+                        logger.warn("Out of post");
+                        Thread.sleep(auxiliary.delayBetween(3000, 4000));
+                        this.closePost();
                     }
                 }
-                this.closePost();
+                else {
+                    List<String> users = new ArrayList<>();
+                    for (int i=2; i<commentUsers.size(); i++) {
+                        users.add(commentUsers.get(i).getText());
+                    }
+
+                    for(int j=0; j<number_of_likes; j++) {
+                        if(this.likedCommentUsersIndex.size() < users.size()) {
+                            int randomCommentIndex = new Random().nextInt(likeCommentButtons.size());
+                            while (likedCommentUsersIndex.contains(randomCommentIndex)) {
+                                randomCommentIndex = new Random().nextInt(likeCommentButtons.size());
+                            }
+                            likedCommentUsersIndex.add(randomCommentIndex);
+                            javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", likeCommentButtons.get(randomCommentIndex));
+                            logger.info("Moved to " + users.get(randomCommentIndex) + "'s comment");
+                            TimeUnit.SECONDS.sleep(auxiliary.delayBetween(2, 6));
+                            if (likeStatus.get(randomCommentIndex).equals("Like")) {
+                                likeCommentButtons.get(randomCommentIndex).click();
+                                if(!likedCommentUsers.contains(users.get(randomCommentIndex))) {
+                                    likedCommentUsers.add(users.get(randomCommentIndex));
+                                }
+                                logger.info("Liked " + users.get(randomCommentIndex) + "'s comment");
+                                Thread.sleep(auxiliary.delayBetween(3000, 5000));
+                            }
+                            else {
+                                logger.info("This comment has been liked");
+                                Thread.sleep(auxiliary.delayBetween(3000, 5000));
+                            }
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                    System.out.println(likedCommentUsers);
+                    this.closePost();
+                }
             }
             else {
                 logger.warn("No comment yet.");
@@ -110,8 +154,9 @@ public class LikeComments {
             boolean button = driver.findElements(InstagramElements.moreCommentsButton).size() > 0;
             JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
             if(button) {
-                javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", driver.findElements(InstagramElements.moreCommentsButton).get(0));
                 Thread.sleep(auxiliary.delayBetween(2500, 3500));
+                javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", driver.findElements(InstagramElements.moreCommentsButton).get(0));
+                Thread.sleep(auxiliary.delayBetween(1500, 2500));
                 driver.findElements(InstagramElements.moreCommentsButton).get(0).click();
                 logger.info("Clicked to more comments");
                 Thread.sleep(auxiliary.delayBetween(3000, 4000));

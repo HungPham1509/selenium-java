@@ -20,6 +20,7 @@ public class LoginPage {
     private WebDriver driver;
     protected Auxiliary auxiliary = new Auxiliary();
     private Logger logger = Logger.getLogger(LoginPage.class);
+    public boolean isAuthenticated = true;
 
     public void accessInstagram() {
         try {
@@ -47,7 +48,7 @@ public class LoginPage {
                 Thread.sleep(delayTime);
             }
             logger.info("Filled in username input.");
-            TimeUnit.SECONDS.sleep(1);
+            Thread.sleep(auxiliary.delayBetween(1500, 2500));
         }catch (Exception e) {
             logger.error("Failed to fill in username input.");
             e.printStackTrace();
@@ -64,7 +65,7 @@ public class LoginPage {
                 Thread.sleep(delayTime);
             }
             logger.info("Filled in password input.");
-            TimeUnit.SECONDS.sleep(1);
+            Thread.sleep(auxiliary.delayBetween(1500, 2500));
         }catch (Exception e) {
             logger.error("Failed to fill in password input.");
             e.printStackTrace();
@@ -73,11 +74,17 @@ public class LoginPage {
 
     public void clickLoginButton() {
         try {
+            List<WebElement> elements = driver.findElements(InstagramElements.logInFailedAlert);
             driver.findElement(InstagramElements.loginButton).click();
             logger.info("Clicked login button.");
-            logger.info("Login Successfully");
             int delayTime = auxiliary.delayBetween(5, 8);
-           TimeUnit.SECONDS.sleep(delayTime);
+            TimeUnit.SECONDS.sleep(delayTime);
+            if(elements.size() > 0) {
+                if(elements.get(0).getText().equals("Sorry, your password was incorrect. Please double-check your password.")) {
+                    logger.warn("Incorrect username and password.");
+                    this.isAuthenticated = false;
+                }
+            }
         } catch (Exception e) {
             logger.error("Failed to log in.");
             e.printStackTrace();
@@ -86,6 +93,7 @@ public class LoginPage {
 
     public void profile(String username) {
         try {
+            logger.info("Login Successfully");
             driver.get(InstagramElements.instagramUrl + username);
             logger.info("Accessed profile.");
             int delayTime = auxiliary.delayBetween(4, 6);
@@ -104,32 +112,35 @@ public class LoginPage {
             this.setPasswordField(password);  //kawaken080808
             this.clickLoginButton();
         }
-        this.profile(username);
+        if(this.isAuthenticated) {
+            this.profile(username);
+        }
     }
 
     public void saveCookies(String username, String password) {
         try {
-            FileWriter accountsFileWriter = new FileWriter("accounts.data", true);
-            BufferedWriter accountsBufferedWriter = new BufferedWriter(accountsFileWriter);
-            accountsBufferedWriter.write(username);
-            accountsBufferedWriter.newLine();
-            accountsBufferedWriter.close();
-            accountsFileWriter.close();
             this.startLogIn(username, password, false);
+            if(this.isAuthenticated) {
+                // Write username to file
+                FileWriter accountsFileWriter = new FileWriter("accounts.data", true);
+                BufferedWriter accountsBufferedWriter = new BufferedWriter(accountsFileWriter);
+                accountsBufferedWriter.write(username);
+                accountsBufferedWriter.newLine();
+                accountsBufferedWriter.close();
+                accountsFileWriter.close();
 
-            // Write cookies to file
-            FileWriter cookiesFileWriter = new FileWriter("cookies.data", true);
-            BufferedWriter cookiesBufferedWriter = new BufferedWriter(cookiesFileWriter);
-            for(Cookie ck : driver.manage().getCookies())
-            {
-                if(ck.getName().equals("ds_user_id") | ck.getName().equals("sessionid")) {
+                // Write cookies to file
+                FileWriter cookiesFileWriter = new FileWriter("cookies.data", true);
+                BufferedWriter cookiesBufferedWriter = new BufferedWriter(cookiesFileWriter);
+                for(Cookie ck : driver.manage().getCookies())
+                {
                     cookiesBufferedWriter.write((ck.getName()+";"+ck.getValue()+";"+ck.getDomain()+";"+ck.getPath()+";"+ck.getExpiry()+";"+ck.isSecure()));
                     cookiesBufferedWriter.newLine();
                 }
+                cookiesBufferedWriter.newLine();
+                cookiesBufferedWriter.close();
+                cookiesFileWriter.close();
             }
-            cookiesBufferedWriter.newLine();
-            cookiesBufferedWriter.close();
-            cookiesFileWriter.close();
         }catch (Exception e) {
             e.printStackTrace();
         }
