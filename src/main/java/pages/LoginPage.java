@@ -74,11 +74,11 @@ public class LoginPage {
 
     public void clickLoginButton() {
         try {
-            List<WebElement> elements = driver.findElements(InstagramElements.logInFailedAlert);
             driver.findElement(InstagramElements.loginButton).click();
             logger.info("Clicked login button.");
             int delayTime = auxiliary.delayBetween(5, 8);
             TimeUnit.SECONDS.sleep(delayTime);
+            List<WebElement> elements = driver.findElements(InstagramElements.logInFailedAlert);
             if(elements.size() > 0) {
                 if(elements.get(0).getText().equals("Sorry, your password was incorrect. Please double-check your password.")) {
                     logger.warn("Incorrect username and password.");

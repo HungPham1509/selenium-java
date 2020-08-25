@@ -1,6 +1,7 @@
 package pages;
 
 import auxiliary.Auxiliary;
+import auxiliary.InstagramUtils;
 import config.InstagramElements;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -8,6 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -40,25 +42,38 @@ public class LikeList {
 
     private boolean stopLike = false;
 
+    private List<String> followerList = new ArrayList<>();
+
+    protected InstagramUtils instagramUtils;
+
     public void StartLikeBack(int number_of_likes, List<String> excluded_users) {
-        List<WebElement> elements = driver.findElements(InstagramElements.post);
-        if(elements.size() > 0) {
-            try {
-                elements.get(0).click();
-                logger.info("Clicked to the latest post");
-                Thread.sleep(auxiliary.delayBetween(2500, 3500));
-                for(int i=0; i<number_of_likes; i++) {
-                    if(!stopLike) {
-                        this.getLikeList();
+        try {
+            instagramUtils = new InstagramUtils(driver);
+            int number_of_followers = instagramUtils.getNumberOfFollowers();
+            followerList = instagramUtils.getFollowerList("Hello: ", number_of_followers);
+            this.closePost();
+            System.out.println(followerList);
+            List<WebElement> elements = driver.findElements(InstagramElements.post);
+            if(elements.size() > 0) {
+                try {
+                    elements.get(0).click();
+                    logger.info("Clicked to the latest post");
+                    Thread.sleep(auxiliary.delayBetween(2500, 3500));
+                    for(int i=0; i<number_of_likes; i++) {
+                        if(!stopLike) {
+                            this.getLikeList();
+                        }
                     }
+                }catch (Exception e) {
+                    logger.error("Failed to get the latest post.");
+                    e.printStackTrace();
                 }
-            }catch (Exception e) {
-                logger.error("Failed to get the latest post.");
-                e.printStackTrace();
             }
-        }
-        else {
-            logger.warn("No post yet.");
+            else {
+                logger.warn("No post yet.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -70,7 +85,7 @@ public class LikeList {
                 if(elements.get(2).getText().equals("")) {
                     index = 3;
                 }
-                if (!elements.get(0).getText().equals("Edit Profile") && !elements.get(2).getText().equals("")) {
+                if (!elements.get(0).getText().equals("Edit Profile") && !elements.get(1).getText().equals("")) {
                     index = 1;
                 }
 
@@ -178,6 +193,11 @@ public class LikeList {
 
     public void getPost() {
         try {
+            List<WebElement> names = driver.findElements(InstagramElements.likerName);
+            String name = "";
+            if(names.size() > 0) {
+                name = names.get(0).getText();
+            }
             this.numberOfClikingNextTimes = 0;
             List<WebElement> elements = driver.findElements(InstagramElements.post);
             if(elements.size() > 0) {

@@ -7,7 +7,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class LikeHashTag {
@@ -33,9 +37,17 @@ public class LikeHashTag {
 
     private By nextArrow = By.className("coreSpriteRightPaginationArrow");
 
+    private List<String> likedUsernameList = new ArrayList<>();
+
+    private Map<String, String> likedNameList = new HashMap<>();
+
     private int numberOfLikes = 0;
 
-    public void findHashTag(String tag, String postType, List<String> excluded_users) {
+    private int numberOfTopPosts = 1;
+
+    private int numberOfNextTimes = 0;
+
+    public void findHashTag(int number_of_likes, String tag, String postType, List<String> excluded_users) {
         try {
             WebElement search = driver.findElement(InstagramElements.searchInput);
             for (int i=0; i<tag.length(); i++) {
@@ -56,12 +68,15 @@ public class LikeHashTag {
                 }
                 logger.info("Moved to target hashtag: " + tag);
                 TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
-                this.getPost(postType);
+                this.getPost(postType, number_of_likes);
             }
             else {
                 search.clear();
                 logger.warn("Couldn't find hashtag.");
                 TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
+            }
+            for(Map.Entry entry : likedNameList.entrySet()) {
+                System.out.println(entry.getKey() + "-" + entry.getValue());
             }
         }
         catch (Exception e) {
@@ -70,11 +85,12 @@ public class LikeHashTag {
         }
     }
 
-    public void getPost(String postType) {
+    public void getPost(String postType, int number_of_likes) {
         try {
             List<WebElement> elements = driver.findElements(InstagramElements.post);
             JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
             this.numberOfLikes = 0;
+            this.numberOfTopPosts = 1;
             if(elements.size() > 0) {
                 if (postType.equals("Top")) {
                     elements.get(0).click();
@@ -87,7 +103,7 @@ public class LikeHashTag {
                     logger.info("Clicked to the first recently post");
                 }
                 Thread.sleep(auxiliary.delayBetween(2500, 3500));
-                this.likePost();
+                this.likePost(postType, number_of_likes);
             }
             else {
                 logger.warn("No post yet");
@@ -98,26 +114,55 @@ public class LikeHashTag {
         }
     }
 
-    public void likePost() {
+    public void likePost(String postType, int number_of_likes) {
         try {
             List<WebElement> elements = driver.findElements(InstagramElements.svgElement);
+            List<WebElement> usernames = driver.findElements(InstagramElements.commentUser);
             String liked = elements.get(5).getAttribute("aria-label");
             if(liked.equals("Like")) {
                     //driver.findElement(InstagramElements.likeButton).click();
                     numberOfLikes +=1;
                     logger.info("Liked the post.");
                     TimeUnit.SECONDS.sleep(auxiliary.delayBetween(3, 5));
+                    if(usernames.size() > 0) {
+                        likedUsernameList.add(usernames.get(0).getText());
+                    }
             }
             List<WebElement> arrow = driver.findElements(InstagramElements.nextArrow);
-            if(arrow.size() > 0 && this.numberOfLikes < 3) {
+            if(arrow.size() > 0 && this.numberOfLikes < number_of_likes && numberOfTopPosts < 9) {
+                if(postType.equals("Top")) numberOfTopPosts+=1;
                 arrow.get(0).click();
+                numberOfNextTimes+=1;
                 logger.info("Moved to the next post because the previous post had been liked");
                 Thread.sleep(auxiliary.delayBetween(3000, 4000));
-                this.likePost();
+                this.likePost(postType, number_of_likes);
             }
             else {
                 logger.warn("Out of post");
-                this.closePost();
+                for(int i=0; i<numberOfNextTimes+1; i++) {
+                    usernames = driver.findElements(InstagramElements.commentUser);
+                    if(usernames.size() > 0 && likedUsernameList.contains(usernames.get(0).getText())) {
+                        String username = usernames.get(0).getText();
+                        usernames.get(0).click();
+                        logger.info("Moved to " + username + "'s profile");
+                        Thread.sleep(auxiliary.delayBetween(3000, 4000));
+                        List<WebElement> names = driver.findElements(InstagramElements.likerName);
+                        if(names.size() > 0) {
+                            likedNameList.put(username, names.get(0).getText());
+                        }
+                        driver.navigate().back();
+                        logger.info("Back from " + username + "'s profile");
+                        Thread.sleep(auxiliary.delayBetween(3500, 5000));
+                        driver.navigate().back();
+                        logger.info("Back to previous post");
+                        Thread.sleep(auxiliary.delayBetween(3000, 4500));
+                    }
+                    else {
+                        driver.navigate().back();
+                        logger.info("Back to previous post");
+                        Thread.sleep(auxiliary.delayBetween(3000, 4500));
+                    }
+                }
             }
         }catch (Exception e) {
             logger.error("Failed to like the post");

@@ -12,12 +12,15 @@ public class InstagramElements {
     public static final String instagramUrl = "https://www.instagram.com/";
     public static final By followerList = By.className("-nal3");
     public static final By follower = By.className("FPmhX");
+    public static final By followerName = By.className("wFPL8");//_0PwGv
+    public static final By followerName2 = By.className("_0PwGv");
     public static final By post = By.className("_9AhH0");
     public static final By svgElement = By.className("_8-yf5");
     public static final By likeButton = By.className("fr66n");
     public static final By nextArrow = By.className("coreSpriteRightPaginationArrow");
     public static final By likeList = By.className("_8A5w5");
     public static final By liker = By.className("MBL3Z");
+    public static final By likerName = By.className("rhpdm");
     public static final By likeCommentButton = By.className("_2ic5v");
     public static final By commentUser = By.className("ZIAjV");
     public static final By moreCommentsButton = By.className("glyphsSpriteCircle_add__outline__24__grey_9");

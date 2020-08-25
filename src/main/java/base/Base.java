@@ -2,18 +2,14 @@ package base;
 
 import auxiliary.Auxiliary;
 import org.apache.log4j.Logger;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import pages.*;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class Base {
     private WebDriver driver;
@@ -32,9 +28,10 @@ public class Base {
 
     private Logger logger = Logger.getLogger(Base.class);
 
-    public void setUp(String instagram_username,
+    public void setUp(int shop_id,
+                      String instagram_username,
                       String instagram_password,
-                      String like_category,
+                      int like_category,
                       int number_of_likes,
                       List<String> excluded_users,
                       List<String> hashtags,
@@ -45,8 +42,9 @@ public class Base {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("headless");
         chromeOptions.addArguments("window-size=1600x900");
-        driver = new ChromeDriver(chromeOptions);
+        driver = new ChromeDriver();
         auxiliary = new Auxiliary();
+
 
         try {
             // Login
@@ -70,21 +68,21 @@ public class Base {
 
             if(loginPage.isAuthenticated) {
                 switch (like_category) {
-                    case "like_followers":
+                    case 2:
                         likeFollowers = new LikeFollowers(driver);
-                        likeFollowers.StartLikeFollowers(number_of_likes, excluded_users);
+                        likeFollowers.StartLikeFollowers(shop_id, like_category, number_of_likes, excluded_users);
                         break;
-                    case "like_comments":
+                    case 4:
                         likeComments = new LikeComments(driver);
                         likeComments.StartLikeComments(number_of_likes, excluded_users);
                         break;
-                    case "like_back":
+                    case 3:
                         likeList = new LikeList(driver);
                         likeList.StartLikeBack(number_of_likes, excluded_users);
                         break;
-                    case "like_hashtag":
+                    case 1:
                         likeHashTag = new LikeHashTag(driver);
-                        for (String s : hashtags) likeHashTag.findHashTag(s, target, excluded_users);
+                        for (String s : hashtags) likeHashTag.findHashTag(number_of_likes, s, target, excluded_users);
                         break;
                     default:
                 }
@@ -109,13 +107,14 @@ public class Base {
     public static void main(String[] args) {
         String i_username = args[0];
         String i_password = args[1];
-        String like_category = args[2];
+        int like_category = Integer.parseInt(args[2]);
         int number_of_likes = Integer.parseInt(args[3]);
         List<String> excluded_users = new ArrayList<>();
         List<String> hashtags = new ArrayList<>();
+        hashtags.add("#chiba");
         String target = "Top";
         Base base = new Base();
-        base.setUp(i_username, i_password, like_category, number_of_likes, excluded_users, hashtags, target);
+        base.setUp(905, i_username, i_password, like_category, number_of_likes, excluded_users, hashtags, target);
         //base.tearDown();
     }
 }

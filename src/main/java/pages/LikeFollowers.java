@@ -1,6 +1,8 @@
 package pages;
 
 import auxiliary.Auxiliary;
+import auxiliary.InstagramUtils;
+import com.google.gson.JsonObject;
 import config.InstagramElements;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -20,67 +22,30 @@ public class LikeFollowers {
 
     protected Auxiliary auxiliary = new Auxiliary();
 
-    private By followerList = By.className("-nal3");
+    private List<String> chosenFollowerList = new ArrayList<>();
 
-    private By follower = By.className("FPmhX");
-
-    private By post = By.className("_9AhH0");
-
-    private By svgElement = By.className("_8-yf5");
-
-    private By likeButton = By.className("fr66n");
-
-    private By nextArrow = By.className("coreSpriteRightPaginationArrow");
-
-    private List<String> likedFollowerList = new ArrayList<>();
+    private List<JsonObject> likedFollowerList = new ArrayList<>();
 
     private int numberOfClikingNextTimes = 0;
 
-    public void StartLikeFollowers(int  number_of_likes, List<String> excluded_users) {
+    InstagramUtils instagramUtils;
+
+    List<String> followerList = new ArrayList<>();
+
+    public void StartLikeFollowers(int shop_id, int category, int number_of_likes, List<String> excluded_users) {
         try {
-            List<WebElement> elements1 = driver.findElements(InstagramElements.followerList);
-            int numberOFFollowers = 0;
-            if(elements1.get(1).getText().contains("follower")) {
-                numberOFFollowers = Integer.parseInt(elements1.get(1).getText().split("\\s")[0]);
-            }
-            else {
-                logger.error("Couldn't get the number of followers");
-            }
-            if(numberOFFollowers > 0) {
-                JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
-                if(elements1.get(1).getText().contains("follower")) {
-                    elements1.get(1).click();
-                    logger.info("Clicked follower list");
-                    int delayTime = auxiliary.delayBetween(2, 4);
-                    TimeUnit.SECONDS.sleep(delayTime);
-                }
-                else {
-                    logger.warn("Couldn't find follower list button.");
-                }
-                List<WebElement> elements = driver.findElements(InstagramElements.follower);
-                if (numberOFFollowers > 12) {
-                    try {
-                        int x = numberOFFollowers / 12;
-                        for (int i = 0; i < x; i++) {
-                            javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", elements.get(elements.size() - 1));
-                            Thread.sleep(auxiliary.delayBetween(800, 1500));
-                            elements = driver.findElements(InstagramElements.follower);
-                        }
-                        logger.info("Scrolled the follower list to the bottom");
-                    } catch (Exception e) {
-                        logger.error("Failed to scrolled the follower list to the bottom");
-                        e.printStackTrace();
-                    }
-                }
+            instagramUtils = new InstagramUtils(driver);
+            int number_of_followers = instagramUtils.getNumberOfFollowers();
+            followerList = instagramUtils.getFollowerList("Hello: ", number_of_followers);
+            if(number_of_followers > 0) {
                 for(int i=0; i<number_of_likes; i++) {
-                    if(this.likedFollowerList.size() < numberOFFollowers) {
-                        this.getFollower(numberOFFollowers);
+                    if(this.chosenFollowerList.size() < number_of_followers) {
+                        this.getFollower(number_of_followers);
                         if(this.numberOfClikingNextTimes >= 0) {
                             this.getBack();
                         }
                     }
                 }
-                System.out.println(likedFollowerList);
             }
             else {
                 logger.warn("No follower yet");
@@ -95,34 +60,41 @@ public class LikeFollowers {
     public void getFollower(int number_of_followers) {
         try {
             List<WebElement> elements = driver.findElements(InstagramElements.follower);
+            List<WebElement> followerName = driver.findElements(InstagramElements.followerName);
+            if(followerName.size() == 0) {
+                followerName = driver.findElements(InstagramElements.followerName2);
+            }
+
             JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
             int randomFollowerIndex = new Random().nextInt(number_of_followers);
-            while (this.likedFollowerList.contains(elements.get(randomFollowerIndex).getText())) {
+            while (this.chosenFollowerList.contains(elements.get(randomFollowerIndex).getText())) {
                 randomFollowerIndex = new Random().nextInt(elements.size());
             }
-            this.likedFollowerList.add(elements.get(randomFollowerIndex).getText());
+            this.chosenFollowerList.add(elements.get(randomFollowerIndex).getText());
             javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", elements.get(randomFollowerIndex));
+            String username = elements.get(randomFollowerIndex).getText();
+            String name = followerName.get(randomFollowerIndex).getText();
             logger.info("Moved to picked follower: " + elements.get(randomFollowerIndex).getText());
             TimeUnit.SECONDS.sleep(auxiliary.delayBetween(2, 4));
             elements.get(randomFollowerIndex).click();
             this.numberOfClikingNextTimes = 0;
             logger.info("Clicked to picked follower");
             TimeUnit.SECONDS.sleep(auxiliary.delayBetween(4, 6));
-            this.getPost();
+            this.getPost(username, name);
         }catch (Exception e) {
             logger.error("Failed to get follower");
             e.printStackTrace();
         }
     }
 
-    public void getPost() {
+    public void getPost(String username, String name) {
         List<WebElement> elements = driver.findElements(InstagramElements.post);
         if(elements.size() > 0) {
             try {
                 elements.get(0).click();
                 logger.info("Clicked to the latest post of picked follower");
                 TimeUnit.SECONDS.sleep(auxiliary.delayBetween(2, 4));
-                this.likePost();
+                this.likePost(username, name);
             }catch (Exception e) {
                 logger.error("Failed to get post");
                 e.printStackTrace();
@@ -158,7 +130,7 @@ public class LikeFollowers {
         }
     }
 
-    public void likePost() {
+    public void likePost(String username, String name) {
         List<WebElement> elements = driver.findElements(InstagramElements.svgElement);
         String liked = elements.get(8).getAttribute("aria-label");
         if(elements.get(2).getAttribute("aria-label").equals("Posts")) {
@@ -171,6 +143,11 @@ public class LikeFollowers {
                 logger.info("Liked the post");
                 Thread.sleep(auxiliary.delayBetween(3000, 4500));
                 this.close();
+                instagramUtils = new InstagramUtils(driver);
+                JsonObject user = new JsonObject();
+                user.addProperty("username", username);
+                user.addProperty("name", name);
+                likedFollowerList.add(user);
             }catch (Exception e) {
                 logger.error("Failed to like the post");
                 e.printStackTrace();
@@ -185,7 +162,7 @@ public class LikeFollowers {
                     this.numberOfClikingNextTimes +=1;
                     logger.info("Moved to the next post because the previous post had been liked");
                     Thread.sleep(auxiliary.delayBetween(3000, 4000));
-                    this.likePost();
+                    this.likePost(username, name);
                 }
                 else {
                     Thread.sleep(auxiliary.delayBetween(1000, 2000));
@@ -221,6 +198,8 @@ public class LikeFollowers {
             e.printStackTrace();
         }
     }
+
+
 
     public LikeFollowers(WebDriver driver) {this.driver = driver;}
 }
